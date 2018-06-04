@@ -1,0 +1,39 @@
+ext {
+    /**
+     * android相关配置
+     */
+    android = [
+            compileSdkVersion: 25,
+            buildToolsVersion: "26.0.2",
+            applicationId    : "com.xiao.mineim",
+            minSdkVersion    : 16,
+            targetSdkVersion : 25,
+            versionCode      : 1,
+            versionName      : "1.0"
+    ]
+
+    /**
+     * JDK版本
+     */
+    java = [
+
+            javaVersion: JavaVersion.VERSION_1_8
+
+    ]
+
+    androidSupportVersion = "25.3.1"
+
+    /**
+     * 项目依赖包
+     */
+    dependencies = [
+            libAppCompatVersion          : "com.android.support:appcompat-v7:$androidSupportVersion",
+            libRecyclerViewVersion       : "com.android.support:recyclerview-v7:$androidSupportVersion",
+            libSupportVersion            : "com.android.support:support-v4:$androidSupportVersion",
+
+            libConstraintLayoutVersion   : 'com.android.support.constraint:constraint-layout:1.0.2',
+
+            libButterKnifeVersion        : 'com.jakewharton:butterknife:8.8.1',
+            libButterKnifeCompilerVersion: 'com.jakewharton:butterknife-compiler:8.8.1'
+    ]
+}
