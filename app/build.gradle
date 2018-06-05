@@ -24,6 +24,15 @@ dependencies {
 
     compile rootProject.ext.dependencies.libAppCompatVersion
     compile rootProject.ext.dependencies.libConstraintLayoutVersion
+    compile rootProject.ext.dependencies.libSupportVersion
+    compile rootProject.ext.dependencies.libButterKnifeVersion
+    compile rootProject.ext.dependencies.libButterKnifeCompilerVersion
+    compile rootProject.ext.dependencies.libRecyclerViewVersion
+    compile rootProject.ext.dependencies.libDesignVersion
+    compile rootProject.ext.dependencies.libQiujuerUIVersion
+    compile rootProject.ext.dependencies.libQiujuerResVersion
+    compile rootProject.ext.dependencies.libCircleImageViewVersion
+    compile rootProject.ext.dependencies.libGlideVersion
 
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'

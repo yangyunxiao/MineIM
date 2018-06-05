@@ -11,9 +11,6 @@ import butterknife.BindView;
 public class MainActivity extends BaseActivity {
 
 
-    @BindView(R.id.textView)
-    TextView mTextView;
-
     @Override
     protected int getContentLayoutID() {
         return R.layout.activity_main;
@@ -22,8 +19,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initWidget() {
         super.initWidget();
-
-        mTextView.setText("hahahahah");
 
     }
 }
