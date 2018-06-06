@@ -13,6 +13,7 @@
         <item name="colorControlActivated">@color/textPrimary</item>
     </style>
 
+    <!--状态栏透明-->
     <style name="AppTheme.TransStatusBar.Base" parent="AppTheme">
         <!--去除顶部的状态栏-->
         <item name="android:windowTranslucentStatus">true</item>

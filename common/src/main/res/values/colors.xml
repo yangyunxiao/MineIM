@@ -10,7 +10,7 @@
     <color name="windowsBackground">#f7f7f7</color>
     <color name="windowsBackgroundLight">#f8f8f8</color>
 
-    <color name="textPrimary">#4e5864</color>
+    <color name="textPrimary">@color/colorAccent</color>
     <color name="textSecond">#8d9ca9</color>
     <color name="textAccent">@color/colorAccent</color>
     <color name="textLight">@color/colorLight</color>

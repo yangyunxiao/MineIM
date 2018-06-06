@@ -6,7 +6,7 @@ ext {
             compileSdkVersion: 25,
             buildToolsVersion: "26.0.2",
             applicationId    : "com.xiao.mineim",
-            minSdkVersion    : 16,
+            minSdkVersion    : 19,
             targetSdkVersion : 25,
             versionCode      : 1,
             versionName      : "1.0"

@@ -5,8 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
 
-import com.xiao.common.R;
-
 import java.util.List;
 
 import butterknife.BindView;

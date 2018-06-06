@@ -40,6 +40,7 @@ public abstract class RecyclerAdapter<Data>
         this.mDataList = dataList;
 
         this.mAdapterListener = listener;
+
     }
 
     @Override
@@ -51,6 +52,7 @@ public abstract class RecyclerAdapter<Data>
         ViewHolder<Data> viewHolder = onCreateViewHolder(root, viewType);
 
         root.setOnClickListener(this);
+
         root.setOnLongClickListener(this);
 
         root.setTag(R.id.recycler_view_holder, viewHolder);
