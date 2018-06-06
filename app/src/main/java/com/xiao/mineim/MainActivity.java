@@ -32,7 +32,6 @@ public class MainActivity extends BaseActivity
         implements BottomNavigationView.OnNavigationItemSelectedListener,
         NavigationHelper.OnTabChangedListener<Integer> {
 
-
     private static final String TAG = "MAIN_ACTIVITY";
 
     private NavigationHelper<Integer> mNavigationHelper;
@@ -46,13 +45,8 @@ public class MainActivity extends BaseActivity
     @BindView(R.id.main_text_title)
     TextView mTitle;
 
-    @BindView(R.id.main_layout_container)
-    FrameLayout mContainer;
-
     @BindView(R.id.main_button_action)
     FloatActionButton mFloatAction;
-
-//    FloatActionButton m
 
     @BindView(R.id.main_navigation)
     BottomNavigationView mNavigation;
@@ -143,7 +137,6 @@ public class MainActivity extends BaseActivity
                 rotation = 360;
 
             }
-
 
         }
 

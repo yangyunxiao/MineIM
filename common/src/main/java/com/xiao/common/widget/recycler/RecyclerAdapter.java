@@ -182,6 +182,18 @@ public abstract class RecyclerAdapter<Data>
         void onItemLongClick(ViewHolder viewHolder, Data data);
     }
 
+    @Override
+    public void update(Data data, ViewHolder<Data> holder) {
+
+        //得到当前ViewHolder的坐标
+        int position = holder.getAdapterPosition();
+        if (position > 0) {
+            mDataList.remove(position);
+            mDataList.add(position, data);
+            notifyItemChanged(position);
+        }
+    }
+
     public static abstract class ViewHolder<Data> extends RecyclerView.ViewHolder {
 
         private Unbinder unbinder;
@@ -201,7 +213,7 @@ public abstract class RecyclerAdapter<Data>
 
         protected void updateData(Data data) {
 
-            mCallback.update(data);
+            mCallback.update(data, this);
         }
     }
 }
