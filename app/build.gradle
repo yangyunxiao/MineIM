@@ -32,10 +32,26 @@ dependencies {
     compile rootProject.ext.dependencies.libQiujuerUIVersion
     compile rootProject.ext.dependencies.libQiujuerResVersion
     compile rootProject.ext.dependencies.libGlideVersion
+    compile(rootProject.ext.dependencies.libCropImageVersion) {
+        exclude module: 'constraint-layout'
+        transitive false
+    }
+
 
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile project(':common')
     testCompile 'junit:junit:4.12'
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '25.2.0'
+            }
+        }
+    }
 }

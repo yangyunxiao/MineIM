@@ -17,6 +17,7 @@ import com.bumptech.glide.request.target.ViewTarget;
 import com.google.common.base.Objects;
 import com.xiao.common.app.BaseActivity;
 import com.xiao.common.widget.PortraitView;
+import com.xiao.mineim.activity.AccountActivity;
 import com.xiao.mineim.fragment.main.ActiveFragment;
 import com.xiao.mineim.fragment.main.ContactFragment;
 import com.xiao.mineim.fragment.main.GroupFragment;
@@ -101,6 +102,12 @@ public class MainActivity extends BaseActivity
 
     }
 
+
+    @OnClick(R.id.main_button_action)
+    void onActionClick() {
+
+        AccountActivity.show(MainActivity.this);
+    }
 
     /**
      * 底部导航栏选中回调

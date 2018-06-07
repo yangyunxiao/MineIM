@@ -3,11 +3,11 @@ ext {
      * android相关配置
      */
     android = [
-            compileSdkVersion: 25,
+            compileSdkVersion: 26,
             buildToolsVersion: "26.0.2",
             applicationId    : "com.xiao.mineim",
             minSdkVersion    : 19,
-            targetSdkVersion : 25,
+            targetSdkVersion : 26,
             versionCode      : 1,
             versionName      : "1.0"
     ]
@@ -41,6 +41,9 @@ ext {
             libGlideVersion              : "com.github.bumptech.glide:glide:3.7.0",
 
             libButterKnifeVersion        : 'com.jakewharton:butterknife:8.8.1',
-            libButterKnifeCompilerVersion: 'com.jakewharton:butterknife-compiler:8.8.1'
+            libButterKnifeCompilerVersion: 'com.jakewharton:butterknife-compiler:8.8.1',
+
+            //图片剪切库导入
+            libCropImageVersion          : 'com.github.yalantis:ucrop:2.2.2-native'
     ]
 }

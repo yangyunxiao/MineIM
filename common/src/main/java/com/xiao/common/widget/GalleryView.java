@@ -33,6 +33,8 @@ import java.util.List;
 
 public class GalleryView extends RecyclerView {
 
+    private static final String TAG = "GALLERY_VIEW";
+
     private static final int LOADER_ID = 0x100;
 
     //最大选中图片爽
@@ -190,7 +192,7 @@ public class GalleryView extends RecyclerView {
 
                         File imageFile = new File(imagePath);
 
-                        if (!imageFile.exists() && imageFile.length() < MIN_IMAGE_FILE_SIZE) {
+                        if (!imageFile.exists() || imageFile.length() < MIN_IMAGE_FILE_SIZE) {
                             //如果没有图片或者图片尺寸大小不符合规定 则跳过
                             continue;
                         }
@@ -201,6 +203,7 @@ public class GalleryView extends RecyclerView {
                         image.date = addDate;
                         image.ID = ID;
                         images.add(image);
+
                     } while (data.moveToNext());
 
                 }
@@ -266,12 +269,15 @@ public class GalleryView extends RecyclerView {
 
         }
 
+        Log.e(TAG, notifyRefresh + "");
+        Log.e(TAG, image.toString());
 
         if (notifyRefresh) {
 
             notifySelectedChanged();
 
         }
+
         return true;
     }
 
@@ -324,6 +330,16 @@ public class GalleryView extends RecyclerView {
         public int hashCode() {
             return path != null ? path.hashCode() : 0;
         }
+
+        @Override
+        public String toString() {
+            return "Image{" +
+                    "ID=" + ID +
+                    ", path='" + path + '\'' +
+                    ", date=" + date +
+                    ", isSelected=" + isSelected +
+                    '}';
+        }
     }
 
     private class Adapter extends RecyclerAdapter<Image> {
@@ -351,8 +367,8 @@ public class GalleryView extends RecyclerView {
         public ViewHolder(View itemView) {
             super(itemView);
 
-            mPic = (ImageView) itemView.findViewById(R.id.gallery_image_item);
-            mCheck = (CheckBox) itemView.findViewById(R.id.gallery_check);
+            mPic = itemView.findViewById(R.id.gallery_image_item);
+            mCheck = itemView.findViewById(R.id.gallery_check);
             mShade = itemView.findViewById(R.id.gallery_view_shade);
 
         }
@@ -370,7 +386,6 @@ public class GalleryView extends RecyclerView {
             mShade.setVisibility(image.isSelected ? View.VISIBLE : INVISIBLE);
 
             mCheck.setChecked(image.isSelected);
-            Log.e("GALLERYVIEW","" + image.isSelected);
             mCheck.setVisibility(View.VISIBLE);
 
         }

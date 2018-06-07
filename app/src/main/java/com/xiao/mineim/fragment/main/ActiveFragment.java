@@ -35,6 +35,8 @@ public class ActiveFragment extends BaseFragment {
             @Override
             public void onSelectedChanged(int selectedImageCount) {
 
+
+//                mGalleryPortrait.get
             }
         });
     }
