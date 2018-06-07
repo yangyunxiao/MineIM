@@ -4,13 +4,11 @@
     android:layout_height="match_parent"
     tools:context="com.xiao.mineim.fragment.main.ActiveFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.xiao.common.widget.GalleryView
+        android:id="@+id/main_gallery_portrait"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textColor="@color/colorAccent"
-        android:gravity="center"
-        android:textSize="@dimen/font_24"
-        android:text="Active" />
+        android:padding="1dp"
+        ></com.xiao.common.widget.GalleryView>
 
 </FrameLayout>

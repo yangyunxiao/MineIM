@@ -4,7 +4,6 @@ apply from : this.file("common.gradle")
 buildscript {
     repositories {
         jcenter()
-        google()
     }
     dependencies {
         //noinspection GradleDependency

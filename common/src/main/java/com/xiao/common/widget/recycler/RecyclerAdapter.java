@@ -211,7 +211,7 @@ public abstract class RecyclerAdapter<Data>
 
         protected abstract void onBind(Data data);
 
-        protected void updateData(Data data) {
+        public void updateData(Data data) {
 
             mCallback.update(data, this);
         }
