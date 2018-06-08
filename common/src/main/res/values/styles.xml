@@ -2,7 +2,7 @@
 
     <style name="Theme.private" parent="Theme.AppCompat">
         <!-- 复写3个主要的色彩. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">#1572fc</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 

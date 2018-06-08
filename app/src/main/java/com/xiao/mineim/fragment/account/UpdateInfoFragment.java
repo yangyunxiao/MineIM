@@ -4,11 +4,14 @@ package com.xiao.mineim.fragment.account;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.xiao.common.app.Application;
 import com.xiao.common.app.BaseFragment;
 import com.xiao.common.widget.PortraitView;
+import com.xiao.factory.Factory;
+import com.xiao.factory.UploadHelper;
 import com.xiao.mineim.R;
 import com.xiao.mineim.fragment.media.GalleryFragment;
 import com.yalantis.ucrop.UCrop;
@@ -25,6 +28,7 @@ import static android.app.Activity.RESULT_OK;
  */
 public class UpdateInfoFragment extends BaseFragment {
 
+    private static final String TAG = UpdateInfoFragment.class.getName();
 
     @BindView(R.id.update_portrait)
     PortraitView mPortrait;
@@ -83,5 +87,15 @@ public class UpdateInfoFragment extends BaseFragment {
                 .asBitmap()
                 .centerCrop()
                 .into(mPortrait);
+
+        final String localPath = resultUri.getPath();
+
+        Factory.runOnAsync(new Runnable() {
+            @Override
+            public void run() {
+                String url = UploadHelper.uploadPortrait(localPath);
+                Log.e(TAG, url);
+            }
+        });
     }
 }

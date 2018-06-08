@@ -29,7 +29,6 @@ dependencies {
 
     compile rootProject.ext.dependencies.libAliOssVersion
 
-
     testCompile 'junit:junit:4.12'
 
     compile project(':common')

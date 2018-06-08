@@ -19,6 +19,10 @@ public class Application extends android.app.Application {
         instance = this;
     }
 
+    public static Application getInstance() {
+        return instance;
+    }
+
     /**
      * 获取缓存文件夹地址
      */
