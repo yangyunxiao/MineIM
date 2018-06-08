@@ -33,6 +33,7 @@ public class GalleryFragment extends BottomSheetDialogFragment implements Galler
 
     private OnSelectedListener mSelectedListener;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -87,7 +88,7 @@ public class GalleryFragment extends BottomSheetDialogFragment implements Galler
 
 
     //去除顶部statusBar黑色
-    private class TransBottomSheetDialog extends BottomSheetDialog {
+    public static class TransBottomSheetDialog extends BottomSheetDialog {
 
         public TransBottomSheetDialog(@NonNull Context context) {
             super(context);

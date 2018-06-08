@@ -21,37 +21,43 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-
     compile rootProject.ext.dependencies.libAppCompatVersion
-    compile rootProject.ext.dependencies.libConstraintLayoutVersion
-    compile rootProject.ext.dependencies.libSupportVersion
+//    compile rootProject.ext.dependencies.libConstraintLayoutVersion
+//    compile rootProject.ext.dependencies.libSupportVersion
     compile rootProject.ext.dependencies.libButterKnifeVersion
     compile rootProject.ext.dependencies.libButterKnifeCompilerVersion
     compile rootProject.ext.dependencies.libRecyclerViewVersion
     compile rootProject.ext.dependencies.libDesignVersion
     compile rootProject.ext.dependencies.libQiujuerUIVersion
     compile rootProject.ext.dependencies.libQiujuerResVersion
+    compile rootProject.ext.dependencies.libQiujuerKitHandlerVersion
     compile rootProject.ext.dependencies.libGlideVersion
+    compile(rootProject.ext.dependencies.libEasyPMVersion) {
+        exclude group: 'com.android.support', module: 'design'
+    }
     compile(rootProject.ext.dependencies.libCropImageVersion) {
         exclude module: 'constraint-layout'
         transitive false
     }
 
-
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile project(':common')
+
+
+
+    compile project(':factory')
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }
 
-configurations.all {
-    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-        def requested = details.requested
-        if (requested.group == 'com.android.support') {
-            if (!requested.name.startsWith("multidex")) {
-                details.useVersion '25.2.0'
-            }
-        }
-    }
-}
+//configurations.all {
+//    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+//        def requested = details.requested
+//        if (requested.group == 'com.android.support') {
+//            if (!requested.name.startsWith("multidex")) {
+//                details.useVersion '25.2.0'
+//            }
+//        }
+//    }
+//}

@@ -1,5 +1,8 @@
 package com.xiao.mineim;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.RippleDrawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
@@ -18,6 +21,7 @@ import com.google.common.base.Objects;
 import com.xiao.common.app.BaseActivity;
 import com.xiao.common.widget.PortraitView;
 import com.xiao.mineim.activity.AccountActivity;
+import com.xiao.mineim.fragment.assist.PermissionFragment;
 import com.xiao.mineim.fragment.main.ActiveFragment;
 import com.xiao.mineim.fragment.main.ContactFragment;
 import com.xiao.mineim.fragment.main.GroupFragment;
@@ -82,6 +86,8 @@ public class MainActivity extends BaseActivity
 
                     }
                 });
+
+        PermissionFragment.hasAllPermissions(this, getSupportFragmentManager());
 
     }
 
@@ -155,5 +161,11 @@ public class MainActivity extends BaseActivity
                 .start();
 
 
+    }
+
+    public static void show(Context context) {
+
+
+        context.startActivity(new Intent(context, MainActivity.class));
     }
 }

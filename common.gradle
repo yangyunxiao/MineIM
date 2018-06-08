@@ -3,11 +3,11 @@ ext {
      * android相关配置
      */
     android = [
-            compileSdkVersion: 26,
-            buildToolsVersion: "26.0.2",
+            compileSdkVersion: 27,
+            buildToolsVersion: "27.0.3",
             applicationId    : "com.xiao.mineim",
             minSdkVersion    : 19,
-            targetSdkVersion : 26,
+            targetSdkVersion : 23,
             versionCode      : 1,
             versionName      : "1.0"
     ]
@@ -21,7 +21,9 @@ ext {
 
     ]
 
-    androidSupportVersion = "25.3.1"
+//    androidSupportVersion = "25.3.1"
+    androidSupportVersion = "27.1.0"
+    qiujuerLibVersion = "2.0.0"
 
     /**
      * 项目依赖包
@@ -34,8 +36,9 @@ ext {
 
             libConstraintLayoutVersion   : 'com.android.support.constraint:constraint-layout:1.0.2',
 
-            libQiujuerUIVersion          : "net.qiujuer.genius:ui:2.0.0",
-            libQiujuerResVersion         : "net.qiujuer.genius:res:2.0.0",
+            libQiujuerUIVersion          : "net.qiujuer.genius:ui:$qiujuerLibVersion",
+            libQiujuerResVersion         : "net.qiujuer.genius:res:$qiujuerLibVersion",
+            libQiujuerKitHandlerVersion  : "net.qiujuer.genius:kit-handler:$qiujuerLibVersion",
 
             libCircleImageViewVersion    : "de.hdodenhof:circleimageview:2.1.0",
             libGlideVersion              : "com.github.bumptech.glide:glide:3.7.0",
@@ -44,6 +47,11 @@ ext {
             libButterKnifeCompilerVersion: 'com.jakewharton:butterknife-compiler:8.8.1',
 
             //图片剪切库导入
-            libCropImageVersion          : 'com.github.yalantis:ucrop:2.2.2-native'
+            libCropImageVersion          : 'com.github.yalantis:ucrop:2.2.2-native',
+
+            //阿里云SDK
+            libAliOssVersion             : 'com.aliyun.dpa:oss-android-sdk:2.3.0',
+
+            libEasyPMVersion             : 'pub.devrel:easypermissions:1.2.0',
     ]
 }
