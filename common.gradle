@@ -25,6 +25,7 @@ ext {
 //    androidSupportVersion = "25.3.1"
     androidSupportVersion = "27.1.0"
     qiujuerLibVersion = "2.0.0"
+    retrofitVersion = "2.4.0"
 
     /**
      * 项目依赖包
@@ -54,5 +55,10 @@ ext {
             libAliOssVersion             : 'com.aliyun.dpa:oss-android-sdk:2.3.0',
 
             libEasyPMVersion             : 'pub.devrel:easypermissions:1.2.0',
+
+            libRetrofitVersion           : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            libRetrofitGsonVersion       : "com.squareup.retrofit2:converter-gson:$retrofitVersion",
+
+            libGsonVersion               : 'com.google.code.gson:gson:2.8.5'
     ]
 }

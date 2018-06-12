@@ -1,9 +1,7 @@
 package com.xiao.mineim;
 
-import android.app.Activity;
-import android.os.Bundle;
-
 import com.xiao.common.app.BaseActivity;
+import com.xiao.mineim.activity.MainActivity;
 import com.xiao.mineim.fragment.assist.PermissionFragment;
 
 public class LaunchActivity extends BaseActivity {

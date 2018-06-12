@@ -16,10 +16,6 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-/**
- * Created by xiao on 2018/6/4.
- */
-
 public abstract class RecyclerAdapter<Data>
         extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder<Data>>
         implements View.OnClickListener, View.OnLongClickListener, AdapterCallback<Data> {

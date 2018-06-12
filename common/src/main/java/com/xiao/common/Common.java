@@ -1,8 +1,15 @@
 package com.xiao.common;
 
-/**
- * Created by xiao on 2018/6/4.
- */
 
 public class Common {
+
+    public interface Constance {
+
+        //手机号码的正则
+        String REGEX_MOBILE = "[1][3,4,5,7,8][0-9]{9}$";
+
+        String HOST = "http://localhost:8080/";
+
+        String API_URL = HOST + "api/";
+    }
 }

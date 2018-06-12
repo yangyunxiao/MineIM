@@ -4,19 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.xiao.mineim.activity.AccountActivity">
+    tools:context="com.xiao.mineim.activity.UserActivity">
+
 
     <ImageView
-        android:id="@+id/account_image_bg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="@string/app_name"
-        android:foreground="@color/maskChatHeader"
-        android:scaleType="centerCrop"/>
-
-    <FrameLayout
-        android:id="@+id/account_frame_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:id="@+id/user_frame_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 
 </FrameLayout>

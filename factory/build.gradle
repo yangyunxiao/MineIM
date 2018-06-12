@@ -28,6 +28,9 @@ dependencies {
     })
 
     compile rootProject.ext.dependencies.libAliOssVersion
+    compile rootProject.ext.dependencies.libRetrofitVersion
+    compile rootProject.ext.dependencies.libRetrofitGsonVersion
+    compile rootProject.ext.dependencies.libGsonVersion
 
     testCompile 'junit:junit:4.12'
 
