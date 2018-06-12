@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_home">我的</string>
+    <string name="action_group">群组</string>
+    <string name="action_contact">联系人</string>
+</resources>

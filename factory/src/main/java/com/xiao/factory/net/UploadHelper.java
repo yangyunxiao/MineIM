@@ -1,4 +1,4 @@
-package com.xiao.factory;
+package com.xiao.factory.net;
 
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -10,6 +10,7 @@ import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvide
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.xiao.common.utils.HashUtil;
+import com.xiao.factory.Factory;
 
 import java.io.File;
 import java.util.Date;

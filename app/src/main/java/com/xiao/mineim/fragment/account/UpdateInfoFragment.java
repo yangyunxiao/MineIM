@@ -11,7 +11,7 @@ import com.xiao.common.app.Application;
 import com.xiao.common.app.BaseFragment;
 import com.xiao.common.widget.PortraitView;
 import com.xiao.factory.Factory;
-import com.xiao.factory.UploadHelper;
+import com.xiao.factory.net.UploadHelper;
 import com.xiao.mineim.R;
 import com.xiao.mineim.fragment.media.GalleryFragment;
 import com.yalantis.ucrop.UCrop;
