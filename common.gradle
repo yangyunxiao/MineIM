@@ -7,25 +7,16 @@ ext {
             buildToolsVersion: "27.0.3",
             applicationId    : "com.xiao.mineim",
             minSdkVersion    : 19,
-            targetSdkVersion : 23,
+            targetSdkVersion : 27,
             versionCode      : 1,
             versionName      : "1.0"
-    ]
-
-    /**
-     * JDK版本
-     */
-    java = [
-
-
-            javaVersion: JavaVersion.VERSION_1_8
-
     ]
 
 //    androidSupportVersion = "25.3.1"
     androidSupportVersion = "27.1.0"
     qiujuerLibVersion = "2.0.0"
     retrofitVersion = "2.4.0"
+    dbflow_version = "4.0.0-beta7"
 
     /**
      * 项目依赖包
@@ -58,7 +49,14 @@ ext {
 
             libRetrofitVersion           : "com.squareup.retrofit2:retrofit:$retrofitVersion",
             libRetrofitGsonVersion       : "com.squareup.retrofit2:converter-gson:$retrofitVersion",
+            libOkHttpLogVersion          : 'com.github.ihsanbal:LoggingInterceptor:2.0.6',
 
-            libGsonVersion               : 'com.google.code.gson:gson:2.8.5'
+            libGsonVersion               : 'com.google.code.gson:gson:2.8.5',
+
+            libGeTuiVersion              : 'com.getui:sdk:2.12.3.0',
+
+            libDbFLowCoreVersion         : "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}",
+            libDbFlowVersion             : "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}",
+            libAnnotationProcessorVersion: "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
     ]
 }

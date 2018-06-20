@@ -10,6 +10,15 @@ android {
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders = [
+                GETUI_APP_ID    : "W08R3e4zEl5XMu0SdESN27",
+                GETUI_APP_KEY   : "QRNX2agVfC9QkLuMel18J5",
+                GETUI_APP_SECRET: "smKxVFGEDc6h2F8NYHE1K8",
+                PACKAGE_NAME    : applicationId
+        ]
+
+
     }
     buildTypes {
         release {
@@ -17,6 +26,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+//
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
 }
 
 dependencies {
@@ -33,9 +47,12 @@ dependencies {
     compile rootProject.ext.dependencies.libQiujuerKitHandlerVersion
     compile rootProject.ext.dependencies.libGlideVersion
     compile rootProject.ext.dependencies.libEasyPMVersion
+    compile rootProject.ext.dependencies.libGeTuiVersion
+
 //    compile(rootProject.ext.dependencies.libEasyPMVersion) {
 //        exclude group: 'com.android.support', module: 'design'
 //    }
+
     compile(rootProject.ext.dependencies.libCropImageVersion) {
         exclude module: 'constraint-layout'
         transitive false
@@ -46,7 +63,7 @@ dependencies {
     })
 
     compile project(':factory')
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:support-v4:27.+'
+
+
     testCompile 'junit:junit:4.12'
 }

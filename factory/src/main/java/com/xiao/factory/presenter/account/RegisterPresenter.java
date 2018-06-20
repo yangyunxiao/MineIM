@@ -9,6 +9,7 @@ import com.xiao.factory.R;
 import com.xiao.factory.data.helper.AccountHelper;
 import com.xiao.factory.model.api.account.RegisterModel;
 import com.xiao.factory.model.db.User;
+import com.xiao.factory.persisitence.Account;
 import com.xiao.factory.presenter.BasePresenter;
 
 import net.qiujuer.genius.kit.handler.Run;
@@ -36,12 +37,12 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View>
         } else if (name.length() < 2) {
             view.showError(R.string.data_account_register_invalid_parameter_name);
 
-        } else if (password.length() < 6 ) {
+        } else if (password.length() < 6) {
             view.showError(R.string.data_account_register_invalid_parameter_password);
 
         } else {
 
-            RegisterModel registerModel = new RegisterModel(phone, password, name);
+            RegisterModel registerModel = new RegisterModel(phone, password, name, Account.getPushId());
             //进行网络请求，并设置回调接口为自己
             AccountHelper.register(registerModel, this);
 

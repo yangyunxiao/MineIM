@@ -19,6 +19,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
@@ -30,7 +31,14 @@ dependencies {
     compile rootProject.ext.dependencies.libAliOssVersion
     compile rootProject.ext.dependencies.libRetrofitVersion
     compile rootProject.ext.dependencies.libRetrofitGsonVersion
+    compile(rootProject.ext.dependencies.libOkHttpLogVersion) {
+        exclude group: 'org.json', module: 'json'
+    }
     compile rootProject.ext.dependencies.libGsonVersion
+
+    compile rootProject.ext.dependencies.libDbFLowCoreVersion
+    compile rootProject.ext.dependencies.libDbFlowVersion
+    annotationProcessor rootProject.ext.dependencies.libAnnotationProcessorVersion
 
     testCompile 'junit:junit:4.12'
 

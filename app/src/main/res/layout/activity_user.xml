@@ -8,13 +8,15 @@
 
 
     <ImageView
+        android:id="@+id/user_image_bg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:contentDescription="@string/app_name" />
 
     <FrameLayout
         android:id="@+id/user_frame_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 
 </FrameLayout>

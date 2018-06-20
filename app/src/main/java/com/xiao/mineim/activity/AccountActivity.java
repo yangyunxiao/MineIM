@@ -105,7 +105,6 @@ public class AccountActivity extends BaseActivity implements IAccountTrigger {
             mCurrentFragment = mLoginFragment;
         }
 
-
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.account_frame_container, mCurrentFragment)

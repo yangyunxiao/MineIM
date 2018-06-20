@@ -4,15 +4,15 @@ import com.xiao.common.factory.presenter.BaseContract;
 
 public interface LoginContract {
 
-    interface View extends BaseContract.View<Preserter> {
+    interface View extends BaseContract.View<Presenter> {
 
         void loginSuccess();
 
     }
 
-    interface Preserter extends BaseContract.Preserter {
+    interface Presenter extends BaseContract.Preserter {
 
-        void login(String phone, String name, String password);
+        void login(String phone, String password);
 
     }
 }

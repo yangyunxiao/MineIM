@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,8 @@ import butterknife.OnClick;
  */
 public class RegisterFragment extends ViewFragment<RegisterContract.Presenter>
         implements RegisterContract.View {
+
+    private static final String TAG = RegisterFragment.class.getName();
 
     private IAccountTrigger mAccountTrigger;
 
@@ -67,6 +70,15 @@ public class RegisterFragment extends ViewFragment<RegisterContract.Presenter>
         String password = mPassword.getText().toString();
 
         mPresenter.register(phone, name, password);
+
+    }
+
+    @OnClick(R.id.register_text_login)
+    void onLoginClick() {
+
+        mAccountTrigger.triggerView();
+
+        Log.e(TAG, "triggerView");
 
     }
 

@@ -34,7 +34,7 @@ public class RspModel<T> {
 
     private int code;
     private String message;
-    private Date time;
+//    private Date time;
     private T result;
 
     public boolean success() {
@@ -49,13 +49,13 @@ public class RspModel<T> {
         this.code = code;
     }
 
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
+//    public Date getTime() {
+//        return time;
+//    }
+//
+//    public void setTime(Date time) {
+//        this.time = time;
+//    }
 
     public String getMessage() {
         return message;

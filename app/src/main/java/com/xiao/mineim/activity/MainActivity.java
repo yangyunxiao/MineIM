@@ -2,6 +2,7 @@ package com.xiao.mineim.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
@@ -17,6 +18,7 @@ import com.bumptech.glide.request.target.ViewTarget;
 import com.google.common.base.Objects;
 import com.xiao.common.app.BaseActivity;
 import com.xiao.common.widget.PortraitView;
+import com.xiao.factory.persisitence.Account;
 import com.xiao.mineim.R;
 import com.xiao.mineim.fragment.assist.PermissionFragment;
 import com.xiao.mineim.fragment.main.ActiveFragment;
@@ -84,7 +86,7 @@ public class MainActivity extends BaseActivity
                     }
                 });
 
-        PermissionFragment.hasAllPermissions(this, getSupportFragmentManager());
+//        PermissionFragment.hasAllPermissions(this, getSupportFragmentManager());
 
     }
 
@@ -98,6 +100,20 @@ public class MainActivity extends BaseActivity
         Menu menu = mNavigation.getMenu();
 
         menu.performIdentifierAction(R.id.action_home, 0);
+    }
+
+    @Override
+    protected boolean initArgs(Bundle extras) {
+        if (Account.userInfoIsCompleted()) {
+
+            return super.initArgs(extras);
+
+        } else {
+
+            UserActivity.show(this);
+
+            return false;
+        }
     }
 
     @OnClick(R.id.main_image_search)
