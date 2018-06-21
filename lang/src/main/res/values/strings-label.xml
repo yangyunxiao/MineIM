@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="label_gallery_select_max_size">至多选择%d张</string>
     <string name="label_permission_network">网络访问</string>
     <string name="label_permission_network_desc">用于即时通讯传输</string>
     <string name="label_permission_read">读取文件</string>
-    <string name="label_permission_read_desc">设置头像与发送图片</string>
-    <string name="label_permission_write">写入文件</string>
-    <string name="label_permission_write_desc">用于文件缓存与图片缓存</string>
+    <string name="label_permission_read_desc">用于设置头像与发送图片</string>
+    <string name="label_permission_write">写外部文件</string>
+    <string name="label_permission_write_desc">用于OSS日志存储</string>
     <string name="label_permission_record_audio">麦克风</string>
     <string name="label_permission_record_audio_desc">用于音频聊天</string>
     <string name="label_permission_submit">授权</string>
@@ -28,29 +27,23 @@
     <string name="label_go_register">没有账户？去注册</string>
     <string name="label_go_login">已有账户？去登录</string>
 
-    <string name="data_account_login_invalid_parameter">账户名密码不能为空！</string>
-    <string name="data_account_login_error_validate">账户或密码验证错误</string>
-    <string name="data_account_register_invalid_parameter_mobile">请输入正确的手机号!</string>
-    <string name="data_account_register_invalid_parameter_password">密码不能小于6位!</string>
-    <string name="data_account_register_invalid_parameter_name">称呼不能小于2位!</string>
-    <string name="data_account_update_invalid_parameter">头像和描述不能为空!</string>
-    <string name="data_network_error">网络错误！</string>
-    <string name="data_upload_error">上传失败！</string>
+    <string name="label_follows">Follows\n%s</string>
+    <string name="label_following">Following\n%s</string>
+    <string name="label_gallery_select_max_size">至多选择%s张</string>
+    <string name="label_gallery_selected_size">已选%s张</string>
 
+    <string name="label_group_name">群名称</string>
+    <string name="label_group_desc">群描述</string>
+    <string name="label_group_member_select">群成员</string>
 
-    <string name="data_rsp_error_unknown">未知错误(ρ_・).。</string>
-    <string name="data_rsp_error_service">服务器错误(ρ_・).。</string>
-    <string name="data_rsp_error_not_found_user">未找到用户! →_→</string>
-    <string name="data_rsp_error_not_found_group">未找到群! →_→</string>
-    <string name="data_rsp_error_not_found_group_member">未找到群成员! →_→</string>
-    <string name="data_rsp_error_create_user">添加用户失败!</string>
-    <string name="data_rsp_error_create_group">添加群失败!</string>
-    <string name="data_rsp_error_create_message">添加消息失败!</string>
-    <string name="data_rsp_error_parameters">抱歉，参数错误哦! O_o</string>
-    <string name="data_rsp_error_parameters_exist_account">已有该账户! ★~★</string>
-    <string name="data_rsp_error_parameters_exist_name">已有该用户名! ★~★</string>
-    <string name="data_rsp_error_account_token">重新登录 ..@_@|||||..</string>
-    <string name="data_rsp_error_account_login">登录失败，是那里没搞定么? §^_^§</string>
-    <string name="data_rsp_error_account_register">抱歉，注册失败!  ^_^|||</string>
-    <string name="data_rsp_error_account_no_permission">您越权啦!!!</string>
+    <string name="label_group_create_invalid">所有项都是必须，并且至少选择一名成员!</string>
+    <string name="label_group_member_add_invalid">没有新增加的成员!</string>
+    <string name="label_group_create_succeed">创建群成功!</string>
+
+    <string name="label_chat_edit_hint">Type something to send…</string>
+
+    <string name="toast_audio_play_error">播放失败！</string>
+    <string name="toast_audio_record_time_short_error">录音时间太短!</string>
+
+    <string name="toast_download_error">下载失败!</string>
 </resources>

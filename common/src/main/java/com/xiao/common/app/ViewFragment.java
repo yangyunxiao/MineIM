@@ -6,7 +6,7 @@ import android.support.annotation.StringRes;
 import com.xiao.common.factory.data.DataSource;
 import com.xiao.common.factory.presenter.BaseContract;
 
-public abstract class ViewFragment<Presenter extends BaseContract.Preserter>
+public abstract class ViewFragment<Presenter extends BaseContract.Presenter>
         extends BaseFragment implements BaseContract.View<Presenter> {
 
     protected Presenter mPresenter;

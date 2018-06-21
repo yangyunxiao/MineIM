@@ -4,7 +4,7 @@ import android.support.annotation.StringRes;
 
 public interface BaseContract {
 
-    interface View<T extends Preserter> {
+    interface View<T extends Presenter> {
 
         void showError(@StringRes int error);
 
@@ -14,7 +14,7 @@ public interface BaseContract {
 
     }
 
-    interface Preserter {
+    interface Presenter {
 
         void start();
 

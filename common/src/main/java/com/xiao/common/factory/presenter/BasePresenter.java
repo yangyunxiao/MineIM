@@ -1,10 +1,10 @@
-package com.xiao.factory.presenter;
+package com.xiao.common.factory.presenter;
 
 import android.view.View;
 
 import com.xiao.common.factory.presenter.BaseContract;
 
-public class BasePresenter<T extends BaseContract.View> implements BaseContract.Preserter {
+public class BasePresenter<T extends BaseContract.View> implements BaseContract.Presenter {
 
     private T mView;
 

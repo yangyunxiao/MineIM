@@ -9,7 +9,7 @@ import com.xiao.factory.data.helper.AccountHelper;
 import com.xiao.factory.model.api.account.LoginModel;
 import com.xiao.factory.model.db.User;
 import com.xiao.factory.persisitence.Account;
-import com.xiao.factory.presenter.BasePresenter;
+import com.xiao.common.factory.presenter.BasePresenter;
 
 import net.qiujuer.genius.kit.handler.Run;
 import net.qiujuer.genius.kit.handler.runable.Action;

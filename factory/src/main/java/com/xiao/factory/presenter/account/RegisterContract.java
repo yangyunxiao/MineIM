@@ -11,7 +11,7 @@ public interface RegisterContract {
 
     }
 
-    interface Presenter extends BaseContract.Preserter {
+    interface Presenter extends BaseContract.Presenter {
 
         void register(String phone, String name, String password);
 

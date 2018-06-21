@@ -9,7 +9,7 @@
         -->
 
         <!--顶部导航条中的Icon和二级字体的颜色-->
-        <item name="colorControlNormal">@color/white_alpha_240</item>
+        <item name="colorControlNormal">#ffffff</item>
         <item name="colorControlActivated">@color/textPrimary</item>
     </style>
 

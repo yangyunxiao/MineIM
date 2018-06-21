@@ -10,7 +10,7 @@ public interface LoginContract {
 
     }
 
-    interface Presenter extends BaseContract.Preserter {
+    interface Presenter extends BaseContract.Presenter {
 
         void login(String phone, String password);
 

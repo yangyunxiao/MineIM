@@ -3,12 +3,15 @@ package com.xiao.factory.data.helper;
 
 import com.xiao.common.factory.data.DataSource;
 import com.xiao.factory.Factory;
+import com.xiao.factory.R;
 import com.xiao.factory.model.api.RspModel;
 import com.xiao.factory.model.api.user.UserUpdateModel;
 import com.xiao.factory.model.card.UserCard;
 import com.xiao.factory.model.db.User;
 import com.xiao.factory.net.Network;
 import com.xiao.factory.net.RemoteService;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,5 +51,37 @@ public class UserHelper {
 
             }
         });
+    }
+
+    /**
+     * 搜索用户
+     */
+    public static Call<RspModel<List<UserCard>>> searchUser(String name,
+                                                            final DataSource.Callback<List<UserCard>> callback) {
+
+        RemoteService service = Network.remote();
+
+        Call<RspModel<List<UserCard>>> call = service.searchUser(name);
+
+        call.enqueue(new Callback<RspModel<List<UserCard>>>() {
+            @Override
+            public void onResponse(Call<RspModel<List<UserCard>>> call, Response<RspModel<List<UserCard>>> response) {
+
+                RspModel<List<UserCard>> rspModel = response.body();
+                if (rspModel.success()) {
+                    callback.onDataLoadSuccess(rspModel.getResult());
+                } else {
+                    Factory.decodeRspCode(rspModel, callback);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RspModel<List<UserCard>>> call, Throwable t) {
+
+                callback.onDataLoadFailed(R.string.data_network_error);
+            }
+        });
+
+        return call;
     }
 }

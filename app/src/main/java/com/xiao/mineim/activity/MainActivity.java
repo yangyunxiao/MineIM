@@ -119,6 +119,11 @@ public class MainActivity extends BaseActivity
     @OnClick(R.id.main_image_search)
     void onSearchClick() {
 
+        int type = Objects.equal(mNavigationHelper.getCurrentTab().mExtra, R.string.title_group) ?
+                SearchActivity.TYPE_GROUP : SearchActivity.TYPE_CONTACT;
+
+        SearchActivity.show(this, type);
+
     }
 
 
@@ -126,6 +131,7 @@ public class MainActivity extends BaseActivity
     void onActionClick() {
 
         AccountActivity.show(MainActivity.this);
+
     }
 
     /**

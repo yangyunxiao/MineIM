@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.xiao.common.R;
+import com.xiao.common.widget.convention.PlaceHolderView;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -21,6 +22,8 @@ public abstract class BaseFragment extends Fragment {
     protected View mRootView;
 
     protected Unbinder mRootUnBinder;
+
+    private PlaceHolderView mPlaceHolderView;
 
     @Override
     public void onAttach(Context context) {
@@ -81,4 +84,12 @@ public abstract class BaseFragment extends Fragment {
         return false;
     }
 
+    /**
+     * 设置占位布局
+     *
+     * @param placeHolderView 继承了占位布局规范的View
+     */
+    public void setPlaceHolderView(PlaceHolderView placeHolderView) {
+        this.mPlaceHolderView = placeHolderView;
+    }
 }

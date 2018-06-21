@@ -41,7 +41,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Account" />
 
-        <!--enabled : 启用广播  默认为false-->
+        <!-- enabled : 启用广播  默认为false -->
         <receiver
             android:name=".MessageReceiver"
             android:enabled="true"
@@ -51,6 +51,12 @@
                 <action android:name="com.igexin.sdk.action.${GETUI_APP_ID}" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".activity.SearchActivity"
+            android:label="@string/title_search"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Main" />
     </application>
 
 </manifest>
