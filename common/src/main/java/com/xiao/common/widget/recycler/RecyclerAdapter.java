@@ -44,9 +44,7 @@ public abstract class RecyclerAdapter<Data>
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View root = inflater.inflate(viewType, parent, false);
-
         ViewHolder<Data> viewHolder = onCreateViewHolder(root, viewType);
-
         root.setOnClickListener(this);
 
         root.setOnLongClickListener(this);
@@ -183,7 +181,7 @@ public abstract class RecyclerAdapter<Data>
 
         //得到当前ViewHolder的坐标
         int position = holder.getAdapterPosition();
-        if (position > 0) {
+        if (position >= 0) {
             mDataList.remove(position);
             mDataList.add(position, data);
             notifyItemChanged(position);
@@ -196,12 +194,15 @@ public abstract class RecyclerAdapter<Data>
 
         private AdapterCallback<Data> mCallback;
 
+        protected Data mData;
+
         public ViewHolder(View itemView) {
             super(itemView);
 
         }
 
         void bind(Data data) {
+            mData = data;
             onBind(data);
         }
 

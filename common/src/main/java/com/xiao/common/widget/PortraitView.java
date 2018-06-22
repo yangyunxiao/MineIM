@@ -35,9 +35,9 @@ public class PortraitView extends CircleImageView {
 //    }
 
 
-    public void setup(RequestManager manager, String url) {
-        setup(manager, R.drawable.default_portrait, url);
-    }
+//    public void setup(RequestManager manager, String url) {
+//        setup(manager, R.mipmap.default_portrait, url);
+//    }
 
 
     public void setup(RequestManager manager, int resourceId, String url) {
