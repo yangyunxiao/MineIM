@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -23,7 +24,12 @@ public abstract class BaseFragment extends Fragment {
 
     protected Unbinder mRootUnBinder;
 
-    private PlaceHolderView mPlaceHolderView;
+    protected PlaceHolderView mPlaceHolderView;
+
+    /**
+     * 是否第一次初始化数据
+     */
+    private boolean mFirstInitData = true;
 
     @Override
     public void onAttach(Context context) {
@@ -62,7 +68,21 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initData();
+
+        if (mFirstInitData) {
+            initData();
+            mFirstInitData = !mFirstInitData;
+        }
+
+        initFirstData();
+    }
+
+
+    /**
+     * 首次初始化数据
+     */
+    protected void initFirstData() {
+
     }
 
     protected void initArgs(Bundle bundle) {

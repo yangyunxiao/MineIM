@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 
 import com.bumptech.glide.RequestManager;
 import com.xiao.common.R;
+import com.xiao.common.factory.model.Author;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -30,11 +31,12 @@ public class PortraitView extends CircleImageView {
 //    public void setup(RequestManager manager, Author author) {
 //        if (author == null)
 //            return;
+//
 //        // 进行显示
 //        setup(manager, author.getPortrait());
 //    }
-
-
+//
+//
 //    public void setup(RequestManager manager, String url) {
 //        setup(manager, R.mipmap.default_portrait, url);
 //    }

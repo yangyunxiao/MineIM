@@ -100,6 +100,14 @@ public class MainActivity extends BaseActivity
         Menu menu = mNavigation.getMenu();
 
         menu.performIdentifierAction(R.id.action_home, 0);
+
+        mPortrait.setup(Glide.with(this), R.mipmap.default_portrait, Account.getCurrentUser().getPortrait());
+    }
+
+    @OnClick(R.id.main_portrait)
+    void onPortraitClick() {
+
+        PersonalActivity.show(this, Account.getUserId());
     }
 
     @Override

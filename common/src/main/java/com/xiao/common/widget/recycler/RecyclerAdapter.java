@@ -169,6 +169,11 @@ public abstract class RecyclerAdapter<Data>
         this.mAdapterListener = adapterListener;
     }
 
+    public List<Data> getItems() {
+
+        return mDataList;
+    }
+
     public interface AdapterListener<Data> {
 
         void onItemClick(ViewHolder viewHolder, Data data);
@@ -211,6 +216,24 @@ public abstract class RecyclerAdapter<Data>
         public void updateData(Data data) {
 
             mCallback.update(data, this);
+        }
+    }
+
+    /**
+     * 对回调接口做一次实现AdapterListener
+     *
+     * @param <Data>
+     */
+    public static abstract class AdapterListenerImpl<Data> implements AdapterListener<Data> {
+
+        @Override
+        public void onItemClick(ViewHolder viewHolder, Data data) {
+
+        }
+
+        @Override
+        public void onItemLongClick(ViewHolder viewHolder, Data data) {
+
         }
     }
 }

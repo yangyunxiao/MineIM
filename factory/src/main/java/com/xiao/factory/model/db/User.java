@@ -1,17 +1,20 @@
 package com.xiao.factory.model.db;
 
 
+import com.google.common.base.Objects;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.Database;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import com.xiao.common.factory.data.DataSource;
+import com.xiao.common.factory.model.Author;
+import com.xiao.factory.utils.DiffUiDataCallback;
 
 import java.util.Date;
 
 @Table(database = AppDatabase.class)
-public class User extends BaseModel {
+public class User extends BaseModel implements Author, DiffUiDataCallback.UiDataDiffer<User> {
 
     public static final int SEX_MAN = 1;
 
@@ -118,6 +121,19 @@ public class User extends BaseModel {
 
     public void setFollow(boolean follow) {
         this.follow = follow;
+    }
+
+    @Override
+    public boolean isSame(User old) {
+        return this == old || Objects.equal(id, old.id);
+    }
+
+    @Override
+    public boolean isUiContentSame(User old) {
+        return this == old || (
+                Objects.equal(name, old.name) && Objects.equal(portrait, old.portrait)
+                        && Objects.equal(sex, old.sex) && Objects.equal(follow, old.isFollow())
+        );
     }
 
 //    public Date getModifyAt() {

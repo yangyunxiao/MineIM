@@ -1,11 +1,12 @@
 package com.xiao.factory.model.card;
 
+import com.xiao.common.factory.model.Author;
 import com.xiao.factory.model.db.User;
 
 import java.util.Date;
 
 
-public class UserCard {
+public class UserCard implements Author{
 
     private String id;
     private String name;

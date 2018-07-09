@@ -142,4 +142,14 @@ public class Account {
     public static String getToken() {
         return token;
     }
+
+    /**
+     * 返回当前用户ID
+     *
+     * @return 用户ID
+     */
+    public static String getUserId() {
+
+        return getCurrentUser().getId();
+    }
 }

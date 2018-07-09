@@ -57,6 +57,8 @@
             android:label="@string/title_search"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Main" />
+        <activity android:name=".activity.ChatActivity" />
+        <activity android:name=".activity.PersonalActivity"></activity>
     </application>
 
 </manifest>
