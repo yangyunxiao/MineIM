@@ -28,18 +28,18 @@ public class PortraitView extends CircleImageView {
         super(context, attrs, defStyle);
     }
 
-//    public void setup(RequestManager manager, Author author) {
-//        if (author == null)
-//            return;
-//
-//        // 进行显示
-//        setup(manager, author.getPortrait());
-//    }
-//
-//
-//    public void setup(RequestManager manager, String url) {
-//        setup(manager, R.mipmap.default_portrait, url);
-//    }
+    public void setup(RequestManager manager, Author author) {
+        if (author == null)
+            return;
+
+        // 进行显示
+        setup(manager, author.getPortrait());
+    }
+
+
+    public void setup(RequestManager manager, String url) {
+        setup(manager, R.mipmap.default_portrait, url);
+    }
 
 
     public void setup(RequestManager manager, int resourceId, String url) {

@@ -59,9 +59,11 @@ public interface RemoteService {
     /**
      * 获取联系人列表
      */
-    @GET("user/contacts")
+    @GET("user/contact")
     Call<RspModel<List<UserCard>>> userContacts();
 
 
+    @GET("user/{userId}")
+    Call<RspModel<UserCard>> searchUserById(@Path("userId") String userId);
 
 }

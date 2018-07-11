@@ -70,11 +70,12 @@ public abstract class BaseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (mFirstInitData) {
-            initData();
+            initFirstData();
             mFirstInitData = !mFirstInitData;
         }
+        initData();
 
-        initFirstData();
+
     }
 
 

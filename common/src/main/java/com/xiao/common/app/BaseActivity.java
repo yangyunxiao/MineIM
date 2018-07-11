@@ -5,12 +5,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
 
+import com.xiao.common.widget.convention.PlaceHolderView;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public abstract class BaseActivity extends AppCompatActivity {
+
+    protected PlaceHolderView mPlaceHolderView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,12 +25,17 @@ public abstract class BaseActivity extends AppCompatActivity {
 
             int layoutId = getContentLayoutID();
             setContentView(layoutId);
+            initBefore();
             initWidget();
             initData();
 
         } else {
             finish();
         }
+    }
+
+    protected void initBefore() {
+
     }
 
     protected void initWindow() {
@@ -79,5 +88,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onBackPressed();
 
         finish();
+    }
+
+    /**
+     * 设置占位布局
+     *
+     * @param mPlaceHolderView 继承了展位布局的规范View
+     */
+    public void setPlaceHolderView(PlaceHolderView mPlaceHolderView) {
+        this.mPlaceHolderView = mPlaceHolderView;
     }
 }

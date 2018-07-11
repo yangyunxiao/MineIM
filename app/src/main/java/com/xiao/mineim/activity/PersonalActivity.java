@@ -3,24 +3,36 @@ package com.xiao.mineim.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.xiao.common.app.BaseActivity;
 import com.xiao.common.app.ToolbarActivity;
+import com.xiao.common.app.ViewToolbarActivity;
 import com.xiao.common.widget.PortraitView;
+import com.xiao.factory.model.db.User;
+import com.xiao.factory.presenter.contact.PersonalContract;
+import com.xiao.factory.presenter.contact.PersonalPresenter;
 import com.xiao.mineim.R;
+
+import net.qiujuer.genius.res.Resource;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class PersonalActivity extends ToolbarActivity {
+public class PersonalActivity extends ViewToolbarActivity<PersonalContract.Presenter>
+        implements PersonalContract.View {
     private static final String BOUND_KEY_ID = "BOUND_KEY_ID";
     private String userId;
 
@@ -39,7 +51,9 @@ public class PersonalActivity extends ToolbarActivity {
     @BindView(R.id.btn_say_hello)
     Button mSayHello;
 
-    private MenuItem mFollow;
+    private MenuItem mFollowItem;
+
+    private boolean mIsFollowUser = false;
 
     public static void show(Context context, String userId) {
         Intent intent = new Intent(context, PersonalActivity.class);
@@ -66,11 +80,33 @@ public class PersonalActivity extends ToolbarActivity {
     }
 
     @Override
+    protected void initData() {
+        super.initData();
+        mPresenter.start();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.personal, menu);
-        mFollow = menu.findItem(R.id.action_follow);
+        mFollowItem = menu.findItem(R.id.action_follow);
+        refreshFollowItemStatus();
         return true;
+    }
+
+    /**
+     * 刷新关注菜单状态
+     */
+    private void refreshFollowItemStatus() {
+
+        if (mFollowItem == null) {
+            return;
+        }
+        Drawable drawable = mIsFollowUser ? getResources().getDrawable(R.drawable.ic_favorite)
+                : getResources().getDrawable(R.drawable.ic_favorite_border);
+        drawable = DrawableCompat.wrap(drawable);
+        DrawableCompat.setTint(drawable, Resource.Color.WHITE);
+        mFollowItem.setIcon(drawable);
     }
 
     @Override
@@ -86,5 +122,43 @@ public class PersonalActivity extends ToolbarActivity {
     void onSayHelloClick() {
         // TODO
         //MessageActivity.show(this, null);
+    }
+
+    @Override
+    public void onLoadDone(User user) {
+
+        if (user == null) {
+            return;
+        }
+
+        mPortrait.setup(Glide.with(this), user);
+        mName.setText(user.getName());
+        mDesc.setText(user.getDesc());
+        mFollows.setText(String.format(getString(R.string.label_follows), user.getFollows()));
+        mFollowing.setText(String.format(getString(R.string.label_following), user.getFollowing()));
+        hideLoading();
+    }
+
+    @Override
+    public void allowChat(boolean isAllow) {
+
+        mSayHello.setVisibility(isAllow ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void setFollowStatus(boolean isFollow) {
+
+        mIsFollowUser = isFollow;
+        refreshFollowItemStatus();
+    }
+
+    @Override
+    protected PersonalContract.Presenter initPresenter() {
+        return new PersonalPresenter(this);
+    }
+
+    @Override
+    public String getUserId() {
+        return userId;
     }
 }

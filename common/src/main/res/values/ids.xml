@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="toolbar" type="id" />
-    <item name="default_portrait" type="drawable" />
+    <item name="default_portrait" type="mipmap" />
     <item name="recycler_view_holder" type="id" />
 </resources>

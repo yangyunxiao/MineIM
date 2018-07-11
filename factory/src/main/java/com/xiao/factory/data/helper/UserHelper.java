@@ -1,6 +1,7 @@
 package com.xiao.factory.data.helper;
 
 
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.xiao.common.factory.data.DataSource;
 import com.xiao.factory.Factory;
 import com.xiao.factory.R;
@@ -8,9 +9,11 @@ import com.xiao.factory.model.api.RspModel;
 import com.xiao.factory.model.api.user.UserUpdateModel;
 import com.xiao.factory.model.card.UserCard;
 import com.xiao.factory.model.db.User;
+import com.xiao.factory.model.db.User_Table;
 import com.xiao.factory.net.Network;
 import com.xiao.factory.net.RemoteService;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -145,6 +148,64 @@ public class UserHelper {
 
                     }
                 });
+    }
+
+
+    /**
+     * 从本地查询用户
+     */
+    public static User searchUserFromLocal(String userId) {
+
+        return SQLite.select()
+                .from(User.class)
+                .where(User_Table.id.eq(userId))
+                .querySingle();
+    }
+
+    /**
+     * 从网络上查询用户
+     */
+    public static User searchUserFromNet(String userId) {
+
+        RemoteService remoteService = Network.remote();
+
+        try {
+            Response<RspModel<UserCard>> response = remoteService.searchUserById(userId).execute();
+            UserCard userCard = response.body().getResult();
+
+            if (userCard != null) {
+                User user = userCard.build();
+                user.save();
+                return user;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    /**
+     * 优先本地搜索用户
+     */
+    public static User search(String userId) {
+
+        User user = searchUserFromLocal(userId);
+        if (user == null) {
+            return searchUserFromNet(userId);
+        }
+        return user;
+    }
+
+    /**
+     * 优先网络搜索用户
+     */
+    public static User searchFirstOfNet(String userId) {
+        User user = searchUserFromNet(userId);
+        if (user == null) {
+            return searchUserFromLocal(userId);
+        }
+        return user;
     }
 
 }
