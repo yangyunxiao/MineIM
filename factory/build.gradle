@@ -40,6 +40,8 @@ dependencies {
     compile rootProject.ext.dependencies.libDbFlowVersion
     annotationProcessor rootProject.ext.dependencies.libAnnotationProcessorVersion
 
+    compile rootProject.ext.dependencies.libQiujuerKitReflectVersion
+
     testCompile 'junit:junit:4.12'
 
     compile project(':common')

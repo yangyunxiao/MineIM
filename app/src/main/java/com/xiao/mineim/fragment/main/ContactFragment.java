@@ -26,7 +26,8 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ContactFragment extends ViewFragment<ContactContract.Presenter> implements ContactContract.View {
+public class ContactFragment extends ViewFragment<ContactContract.Presenter>
+        implements ContactContract.View {
 
     @BindView(R.id.contact_empty)
     EmptyView mEmpty;

@@ -8,6 +8,8 @@ import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.xiao.common.app.Application;
 import com.xiao.common.factory.data.DataSource;
+import com.xiao.factory.data.user.UserCenter;
+import com.xiao.factory.data.user.UserDispatcher;
 import com.xiao.factory.model.api.RspModel;
 import com.xiao.factory.persisitence.Account;
 import com.xiao.factory.utils.DbFlowExclusionStrategy;
@@ -136,12 +138,23 @@ public class Factory {
 
     private static void decodeRspCode(@StringRes final int resId,
                                       final DataSource.FailedCallback callback) {
-        if (callback != null)
+        if (callback != null) {
+
             callback.onDataLoadFailed(resId);
+
+        }
     }
 
 
-
     public static void dispatchPush(String message) {
+    }
+
+
+    /**
+     * 获取用户中心的实现类
+     */
+    public static UserCenter getUserCenter() {
+
+        return UserDispatcher.instance();
     }
 }

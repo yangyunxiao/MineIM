@@ -101,10 +101,9 @@ public class UserHelper {
                 if (rspModel.success()) {
                     UserCard userCard = rspModel.getResult();
                     // 保存到本地数据库
-                    User user = userCard.build();
-                    user.save();
-                    // TODO 通知联系人列表刷新
-
+                    //User user = userCard.build();
+                    //user.save();
+                    Factory.getUserCenter().dispatch(userCard);
                     // 返回数据
                     callback.onDataLoadSuccess(userCard);
                 } else {
@@ -122,7 +121,7 @@ public class UserHelper {
     /**
      * 刷新联系人的操作
      */
-    public static void refreshContracts(final DataSource.Callback<List<UserCard>> callback) {
+    public static void refreshContracts() {
 
         RemoteService remoteService = Network.remote();
 
@@ -133,18 +132,25 @@ public class UserHelper {
 
                         RspModel<List<UserCard>> rspModel = response.body();
                         if (rspModel.success()) {
+                            List<UserCard> cards = rspModel.getResult();
+                            if (cards == null || cards.size() == 0) {
+                                return;
+                            }
 
-                            callback.onDataLoadSuccess(rspModel.getResult());
+                            UserCard[] cards1 = cards.toArray(new UserCard[0]);
+
+                            Factory.getUserCenter().dispatch(cards1);
+
+                            //callback.onDataLoadSuccess(rspModel.getResult());
                         } else {
 
-                            Factory.decodeRspCode(rspModel, callback);
+                            Factory.decodeRspCode(rspModel, null);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<RspModel<List<UserCard>>> call, Throwable t) {
 
-                        callback.onDataLoadFailed(R.string.data_network_error);
 
                     }
                 });

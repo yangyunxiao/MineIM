@@ -14,6 +14,7 @@ import com.xiao.common.app.Application;
 import com.xiao.common.widget.convention.PlaceHolderView;
 
 import net.qiujuer.genius.ui.widget.Loading;
+
 /**
  * 简单的占位控件，
  * 实现了显示一个空的图片显示，
@@ -82,8 +83,9 @@ public class EmptyView extends LinearLayout implements PlaceHolderView {
      */
     private void changeBindViewVisibility(int visible) {
         final View[] views = mBindViews;
-        if (views == null || views.length == 0)
+        if (views == null || views.length == 0) {
             return;
+        }
 
         for (View view : views) {
             view.setVisibility(visible);
@@ -155,10 +157,11 @@ public class EmptyView extends LinearLayout implements PlaceHolderView {
      */
     @Override
     public void triggerOkOrEmpty(boolean isOk) {
-        if (isOk)
+        if (isOk) {
             triggerOk();
-        else
+        } else {
             triggerEmpty();
+        }
     }
 
 }

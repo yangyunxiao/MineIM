@@ -20,23 +20,47 @@ import java.util.Objects;
  */
 @Table(database = AppDatabase.class)
 public class Session extends BaseModel implements DiffUiDataCallback.UiDataDiffer<Session> {
+    /**
+     * Id, 是Message中的接收者User的Id或者群的Id
+     */
     @PrimaryKey
-    private String id; // Id, 是Message中的接收者User的Id或者群的Id
+    private String id;
+    /**
+     * 图片，接收者用户的头像，或者群的图片
+     */
     @Column
-    private String picture; // 图片，接收者用户的头像，或者群的图片
+    private String picture;
+    /**
+     * 标题，用户的名称，或者群的名称
+     */
     @Column
-    private String title; // 标题，用户的名称，或者群的名称
+    private String title;
+    /**
+     * 显示在界面上的简单内容，是Message的一个描述
+     */
     @Column
-    private String content; // 显示在界面上的简单内容，是Message的一个描述
+    private String content;
+    /**
+     * 类型，对应人，或者群消息
+     */
     @Column
-    private int receiverType = Message.RECEIVER_TYPE_NONE; // 类型，对应人，或者群消息
+    private int receiverType = Message.RECEIVER_TYPE_NONE;
+    /**
+     * 未读数量，当没有在当前界面时，应当增加未读数量
+     */
     @Column
-    private int unReadCount; // 未读数量，当没有在当前界面时，应当增加未读数量
+    private int unReadCount;
+    /**
+     * 最后更改时间
+     */
     @Column
-    private Date modifyAt; // 最后更改时间
+    private Date modifyAt;
 
+    /**
+     * 对应的消息，外键为Message的Id
+     */
     @ForeignKey(tableClass = Message.class)
-    private Message message; // 对应的消息，外键为Message的Id
+    private Message message;
 
     public Session() {
 
@@ -131,8 +155,13 @@ public class Session extends BaseModel implements DiffUiDataCallback.UiDataDiffe
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Session session = (Session) o;
 
@@ -201,8 +230,12 @@ public class Session extends BaseModel implements DiffUiDataCallback.UiDataDiffe
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
 
             Identify identify = (Identify) o;
             return type == identify.type

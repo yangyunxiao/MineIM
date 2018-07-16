@@ -14,7 +14,7 @@ import com.xiao.factory.utils.DiffUiDataCallback;
 import java.util.Date;
 
 @Table(database = AppDatabase.class)
-public class User extends BaseModel implements Author, DiffUiDataCallback.UiDataDiffer<User> {
+public class User extends BaseDbModel<User> implements Author {
 
     public static final int SEX_MAN = 1;
 
@@ -121,6 +121,12 @@ public class User extends BaseModel implements Author, DiffUiDataCallback.UiData
 
     public void setFollow(boolean follow) {
         this.follow = follow;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override

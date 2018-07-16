@@ -11,6 +11,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * 自定义头像
+ * @author xiao
  * Created by xiao on 2018/6/5.
  */
 
@@ -29,8 +30,9 @@ public class PortraitView extends CircleImageView {
     }
 
     public void setup(RequestManager manager, Author author) {
-        if (author == null)
+        if (author == null) {
             return;
+        }
 
         // 进行显示
         setup(manager, author.getPortrait());
@@ -43,8 +45,10 @@ public class PortraitView extends CircleImageView {
 
 
     public void setup(RequestManager manager, int resourceId, String url) {
-        if (url == null)
+        if (url == null) {
             url = "";
+
+        }
         manager.load(url)
                 .placeholder(resourceId)
                 .centerCrop()
