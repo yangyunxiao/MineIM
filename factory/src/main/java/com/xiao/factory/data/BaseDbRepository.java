@@ -88,7 +88,7 @@ public abstract class BaseDbRepository<Data extends BaseDbModel<Data>> implement
     private void insertOrUpdate(Data data) {
 
         int index = indexOf(data);
-        if (index > 0) {
+        if (index >= 0) {
             replace(index, data);
         } else {
             insert(data);
@@ -123,12 +123,15 @@ public abstract class BaseDbRepository<Data extends BaseDbModel<Data>> implement
                 return index;
             }
         }
-        return index;
+        return -1;
     }
 
     @Override
     public void dispose() {
 
+        this.successCallback = null;
+        DbHelper.removeChangedListener(dataClass, this);
+        dataList.clear();
     }
 
     /**

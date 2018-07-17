@@ -47,6 +47,7 @@ public class LoginFragment extends ViewFragment<LoginContract.Presenter>
         mAccountTrigger = (IAccountTrigger) context;
     }
 
+    @Override
     protected int getContentLayoutID() {
         return R.layout.fragment_login;
     }

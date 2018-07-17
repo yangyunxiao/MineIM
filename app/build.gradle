@@ -48,7 +48,8 @@ dependencies {
     compile rootProject.ext.dependencies.libGlideVersion
     compile rootProject.ext.dependencies.libEasyPMVersion
     compile rootProject.ext.dependencies.libGeTuiVersion
-
+    debugCompile rootProject.ext.dependencies.libPandoraLib
+    debugCompile rootProject.ext.dependencies.libPandoraNoOpLib
 //    compile(rootProject.ext.dependencies.libEasyPMVersion) {
 //        exclude group: 'com.android.support', module: 'design'
 //    }

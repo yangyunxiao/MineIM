@@ -1,17 +1,12 @@
 package com.xiao.factory.model.db;
 
 
-import com.google.common.base.Objects;
 import com.raizlabs.android.dbflow.annotation.Column;
-import com.raizlabs.android.dbflow.annotation.Database;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
-import com.raizlabs.android.dbflow.structure.BaseModel;
-import com.xiao.common.factory.data.DataSource;
 import com.xiao.common.factory.model.Author;
-import com.xiao.factory.utils.DiffUiDataCallback;
 
-import java.util.Date;
+import java.util.Objects;
 
 @Table(database = AppDatabase.class)
 public class User extends BaseDbModel<User> implements Author {
@@ -39,7 +34,7 @@ public class User extends BaseDbModel<User> implements Author {
     @Column
     private int following;
     @Column
-    private boolean follow;
+    private boolean isFollow;
 //    @Column
 //    private Date modifyAt;
 
@@ -116,11 +111,33 @@ public class User extends BaseDbModel<User> implements Author {
     }
 
     public boolean isFollow() {
-        return follow;
+        return isFollow;
     }
 
     public void setFollow(boolean follow) {
-        this.follow = follow;
+        this.isFollow = follow;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return sex == user.sex
+                && isFollow == user.isFollow
+                && follows == user.follows
+                && following == user.following
+                && Objects.equals(id, user.id)
+                && Objects.equals(name, user.name)
+                && Objects.equals(phone, user.phone)
+                && Objects.equals(portrait, user.portrait)
+                && Objects.equals(desc, user.desc)
+                && Objects.equals(alias, user.alias);
+
+
     }
 
     @Override
@@ -131,22 +148,14 @@ public class User extends BaseDbModel<User> implements Author {
 
     @Override
     public boolean isSame(User old) {
-        return this == old || Objects.equal(id, old.id);
+        return this == old || Objects.equals(id, old.id);
     }
 
     @Override
     public boolean isUiContentSame(User old) {
         return this == old || (
-                Objects.equal(name, old.name) && Objects.equal(portrait, old.portrait)
-                        && Objects.equal(sex, old.sex) && Objects.equal(follow, old.isFollow())
+                Objects.equals(name, old.name) && Objects.equals(portrait, old.portrait)
+                        && Objects.equals(sex, old.sex) && Objects.equals(isFollow, old.isFollow)
         );
     }
-
-//    public Date getModifyAt() {
-//        return modifyAt;
-//    }
-//
-//    public void setModifyAt(Date modifyAt) {
-//        this.modifyAt = modifyAt;
-//    }
 }

@@ -10,6 +10,6 @@ public class AppDatabase {
 
     public static final String DB_NAME = "AppDataBase";
 
-    public static final int VERSION = 3;
+    public static final int VERSION = 5;
 
 }

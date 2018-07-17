@@ -1,13 +1,10 @@
 package com.xiao.factory.data.user;
 
-import android.os.UserHandle;
 import android.text.TextUtils;
 
 import com.xiao.factory.data.helper.DbHelper;
 import com.xiao.factory.model.card.UserCard;
 import com.xiao.factory.model.db.User;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;

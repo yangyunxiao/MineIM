@@ -4,6 +4,8 @@ import com.igexin.sdk.PushManager;
 import com.xiao.common.app.Application;
 import com.xiao.factory.Factory;
 
+import tech.linjiang.pandora.Pandora;
+
 
 public class App extends Application {
 
@@ -16,5 +18,9 @@ public class App extends Application {
 
         //推送进行初始化
         PushManager.getInstance().initialize(this, null);
+
+        Pandora.init(this);
+
+        Pandora.get().open();
     }
 }

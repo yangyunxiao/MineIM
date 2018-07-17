@@ -17,6 +17,7 @@ ext {
     qiujuerLibVersion = "2.0.0"
     retrofitVersion = "2.4.0"
     dbflow_version = "4.0.0-beta7"
+    pandora_version = "v1.0.1"
 
     /**
      * 项目依赖包
@@ -58,6 +59,9 @@ ext {
 
             libDbFLowCoreVersion         : "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}",
             libDbFlowVersion             : "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}",
-            libAnnotationProcessorVersion: "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
+            libAnnotationProcessorVersion: "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}",
+
+            libPandoraLib : "com.github.whataa:pandora:${pandora_version}",
+            libPandoraNoOpLib : "com.github.whataa:pandora-no-op:${pandora_version}",
     ]
 }

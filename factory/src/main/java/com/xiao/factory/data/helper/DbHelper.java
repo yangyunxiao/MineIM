@@ -105,13 +105,27 @@ public class DbHelper {
                                                                              ChangedListener<Model> listener) {
         Set<ChangedListener> changedListeners = instance.getListeners(tClass);
 
-        if (changedListeners == null){
+        if (changedListeners == null) {
 
             //初始化容器
             changedListeners = new HashSet<>();
-            instance.changedListeners.put(tClass,changedListeners);
+            instance.changedListeners.put(tClass, changedListeners);
         }
         changedListeners.add(listener);
+    }
+
+    /**
+     * 删除某一个表的某一个监听器
+     */
+    public static <Data extends BaseDbModel<Data>> void removeChangedListener(Class<Data> dataClass, ChangedListener<Data> listener) {
+
+        Set<ChangedListener> changedListeners = instance.getListeners(dataClass);
+
+        if (changedListeners == null) {
+            return;
+        }
+        //从容易中删除监听者
+        changedListeners.remove(listener);
     }
 
     /**

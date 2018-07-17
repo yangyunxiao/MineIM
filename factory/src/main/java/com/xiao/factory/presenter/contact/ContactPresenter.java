@@ -10,6 +10,7 @@ import com.xiao.factory.data.user.ContactRepository;
 import com.xiao.factory.model.db.User;
 import com.xiao.factory.presenter.BaseSourcePresenter;
 import com.xiao.factory.utils.DiffUiDataCallback;
+
 import java.util.List;
 
 /**
@@ -43,7 +44,7 @@ public class ContactPresenter extends BaseSourcePresenter<User, User, ContactDat
 
         RecyclerAdapter<User> adapter = view.getRecyclerAdapter();
         List<User> oldList = adapter.getItems();
-        DiffUtil.Callback callback = new DiffUiDataCallback<User>(oldList, users);
+        DiffUtil.Callback callback = new DiffUiDataCallback<>(oldList, users);
         DiffUtil.DiffResult result = DiffUtil.calculateDiff(callback);
 
         refreshData(result, users);

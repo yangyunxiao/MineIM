@@ -22,7 +22,7 @@ public class ContactRepository extends BaseDbRepository<User> implements Contact
         //加载数据库中的数据
         SQLite.select()
                 .from(User.class)
-                .where(User_Table.follow.eq(true))
+                .where(User_Table.isFollow.eq(true))
                 .and(User_Table.id.notEq(Account.getUserId()))
                 .orderBy(User_Table.name, true)
                 .limit(100)

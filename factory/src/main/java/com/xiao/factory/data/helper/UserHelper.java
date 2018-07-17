@@ -38,9 +38,10 @@ public class UserHelper {
 
                     UserCard userCard = rspModel.getResult();
 
-                    User user = userCard.build();
-
-                    user.save();
+                    Factory.getUserCenter().dispatch(userCard);
+//                    User user = userCard.build();
+//
+//                    user.save();
 
                     callback.onDataLoadSuccess(userCard);
                 } else {
@@ -180,8 +181,9 @@ public class UserHelper {
             UserCard userCard = response.body().getResult();
 
             if (userCard != null) {
+                Factory.getUserCenter().dispatch(userCard);
                 User user = userCard.build();
-                user.save();
+//                user.save();
                 return user;
             }
         } catch (IOException e) {
