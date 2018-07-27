@@ -66,5 +66,6 @@ dependencies {
     compile project(':factory')
 
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:support-v4:27.+'
     testCompile 'junit:junit:4.12'
 }
