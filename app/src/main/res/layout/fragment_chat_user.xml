@@ -25,10 +25,10 @@
                 android:background="@color/trans"
                 app:collapsedTitleTextAppearance="@style/TextAppearance.Title"
                 app:contentScrim="@color/colorAccent"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
                 app:expandedTitleGravity="bottom|center_horizontal"
                 app:expandedTitleMarginBottom="@dimen/len_16"
                 app:expandedTitleTextAppearance="@style/TextAppearance.Title"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
                 app:title="@string/app_name"
                 app:toolbarId="@id/toolbar">
 

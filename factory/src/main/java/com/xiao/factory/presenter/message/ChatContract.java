@@ -30,7 +30,7 @@ public interface ChatContract {
         /**
          * 初始化的Model
          */
-        void onInit(InitModel model);
+        void onInitTopPage(InitModel model);
     }
 
     /**

@@ -16,6 +16,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.xiao.common.app.BaseFragment;
+import com.xiao.common.factory.presenter.BaseContract;
 import com.xiao.common.widget.PortraitView;
 import com.xiao.factory.model.db.User;
 import com.xiao.factory.presenter.message.ChatContract;
@@ -148,9 +149,10 @@ public class ChatUserFragment extends ChatFragment<User> implements ChatContract
     }
 
     @Override
-    public void onInit(User user) {
+    public void onInitTopPage(User user) {
 
         mPortrait.setup(Glide.with(this), user.getPortrait());
         mCollapsingToolbarLayout.setTitle(user.getName());
     }
+
 }

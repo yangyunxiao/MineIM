@@ -25,7 +25,7 @@ public abstract class BaseDbRepository<Data extends BaseDbModel<Data>> implement
         QueryTransaction.QueryResultListCallback<Data> {
 
     private SuccessCallback<List<Data>> successCallback;
-    private final List<Data> dataList = new LinkedList<>();
+    protected final LinkedList<Data> dataList = new LinkedList<>();
     private Class<Data> dataClass;
 
     public BaseDbRepository() {
@@ -98,7 +98,7 @@ public abstract class BaseDbRepository<Data extends BaseDbModel<Data>> implement
     /**
      * 添加数据
      */
-    private void insert(Data data) {
+    protected void insert(Data data) {
         dataList.add(data);
     }
 

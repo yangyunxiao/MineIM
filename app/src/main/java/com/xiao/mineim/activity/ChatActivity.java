@@ -9,6 +9,8 @@ import android.text.TextUtils;
 import com.xiao.common.app.BaseActivity;
 import com.xiao.common.factory.model.Author;
 import com.xiao.factory.model.db.Group;
+import com.xiao.factory.model.db.Message;
+import com.xiao.factory.model.db.Session;
 import com.xiao.factory.model.db.User;
 import com.xiao.mineim.R;
 import com.xiao.mineim.fragment.message.ChatGroupFragment;
@@ -24,6 +26,17 @@ public class ChatActivity extends BaseActivity {
     private String mReceiverId;
     private boolean mIsGroup;
 
+
+    public static void show(Context context, Session session) {
+
+        if (session == null || context == null || TextUtils.isEmpty(session.getId())) {
+            return;
+        }
+        Intent intent = new Intent(context, ChatActivity.class);
+        intent.putExtra(KEY_RECEIVER_ID, session.getId());
+        intent.putExtra(KEY_RECEIVER_IS_GROUP, session.getReceiverType() == Message.RECEIVER_TYPE_GROUP);
+        context.startActivity(intent);
+    }
 
     /**
      * 打开个人聊天页面

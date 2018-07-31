@@ -23,7 +23,9 @@ public class MessageReceiver extends BroadcastReceiver {
             return;
         }
 
+
         Bundle bundle = intent.getExtras();
+        Log.i(TAG, "onReceive " + bundle.toString());
 
         //判断此消息的意图
         switch (bundle.getInt(PushConsts.CMD_ACTION)) {
@@ -38,12 +40,14 @@ public class MessageReceiver extends BroadcastReceiver {
 
             case PushConsts.GET_MSG_DATA:
 
+                //常规消息送达时
                 byte[] payload = bundle.getByteArray("payload");
 
                 if (payload != null) {
 
                     String message = new String(payload);
 
+                    Log.i(TAG, "Other : " + bundle.toString());
                     onMessageArrived(message);
 
                 }

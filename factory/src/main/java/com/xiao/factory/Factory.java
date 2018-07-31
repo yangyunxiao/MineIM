@@ -1,19 +1,33 @@
 package com.xiao.factory;
 
 import android.support.annotation.StringRes;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.xiao.common.app.Application;
 import com.xiao.common.factory.data.DataSource;
+import com.xiao.factory.data.group.GroupCenter;
+import com.xiao.factory.data.group.GroupDispatcher;
+import com.xiao.factory.data.message.MessageCenter;
+import com.xiao.factory.data.message.MessageDispatcher;
 import com.xiao.factory.data.user.UserCenter;
 import com.xiao.factory.data.user.UserDispatcher;
+import com.xiao.factory.model.api.PushModel;
 import com.xiao.factory.model.api.RspModel;
+import com.xiao.factory.model.card.GroupCard;
+import com.xiao.factory.model.card.GroupMemberCard;
+import com.xiao.factory.model.card.MessageCard;
+import com.xiao.factory.model.card.UserCard;
+import com.xiao.factory.model.db.Message;
 import com.xiao.factory.persisitence.Account;
 import com.xiao.factory.utils.DbFlowExclusionStrategy;
 
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -22,6 +36,8 @@ import java.util.concurrent.Executors;
  */
 
 public class Factory {
+
+    private static final String TAG = Factory.class.getSimpleName();
 
     private static final Factory instance;
 
@@ -146,7 +162,68 @@ public class Factory {
     }
 
 
+    /**
+     * 处理送来的消息
+     */
     public static void dispatchPush(String message) {
+
+        if (!Account.isLogin()) {
+            return;
+        }
+
+        Log.i("FACTORY MESSAGE ", message);
+
+        PushModel model = PushModel.decode(message);
+        if (model == null) {
+            return;
+        }
+
+        for (PushModel.Entity entity : model.getEntities()) {
+
+            Log.e(TAG, "dispatchPush-Entity:" + entity.toString());
+
+            switch (entity.type) {
+                case PushModel.ENTITY_TYPE_LOGOUT:
+                    instance.logout();
+                    break;
+                case PushModel.ENTITY_TYPE_MESSAGE:
+                    //普通消息
+                    MessageCard card = getGson().fromJson(entity.content, MessageCard.class);
+                    getMessageCenter().dispatch(card);
+                    break;
+
+                case PushModel.ENTITY_TYPE_ADD_FRIEND:
+                    //好友添加
+                    UserCard userCard = getGson().fromJson(entity.content, UserCard.class);
+                    getUserCenter().dispatch(userCard);
+                    break;
+                case PushModel.ENTITY_TYPE_ADD_GROUP:
+                    //添加群
+                    GroupCard groupCard = getGson().fromJson(entity.content, GroupCard.class);
+                    getGroupCenter().dispatch(groupCard);
+                    break;
+                case PushModel.ENTITY_TYPE_ADD_GROUP_MEMBERS:
+                case PushModel.ENTITY_TYPE_MODIFY_GROUP_MEMBERS:
+                    Type type = new TypeToken<List<GroupMemberCard>>() {
+                    }.getType();
+
+                    List<GroupMemberCard> listCard = getGson().fromJson(entity.content, type);
+
+                    getGroupCenter().dispatch(listCard.toArray(new GroupMemberCard[0]));
+                    break;
+
+                case PushModel.ENTITY_TYPE_EXIT_GROUP_MEMBERS:
+                    //TODO 成员退出的推送
+                    break;
+            }
+        }
+    }
+
+    /**
+     * 收到账户退出的消息需要进行账户退出重新登录
+     */
+    private void logout() {
+
     }
 
 
@@ -156,5 +233,20 @@ public class Factory {
     public static UserCenter getUserCenter() {
 
         return UserDispatcher.instance();
+    }
+
+    /**
+     * 获取消息中心的实现类
+     */
+    public static MessageCenter getMessageCenter() {
+        return MessageDispatcher.instance();
+    }
+
+
+    /**
+     * 获取一个群处理中心的实现类
+     */
+    public static GroupCenter getGroupCenter() {
+        return GroupDispatcher.instance();
     }
 }

@@ -10,6 +10,9 @@ import com.raizlabs.android.dbflow.structure.database.transaction.ITransaction;
 import com.xiao.factory.data.BaseDbRepository;
 import com.xiao.factory.model.db.AppDatabase;
 import com.xiao.factory.model.db.BaseDbModel;
+import com.xiao.factory.model.db.GroupMember;
+import com.xiao.factory.model.db.Message;
+import com.xiao.factory.model.db.Session;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -98,7 +101,52 @@ public class DbHelper {
 
         }
 
-        // TODO 处理例外的情况
+
+        if (GroupMember.class.equals(tClass)) {
+
+
+        } else if (Message.class.equals(tClass)) {
+            //消息变化，通知会话列表更新
+            updateSession((Message[]) models);
+        }
+    }
+
+    /**
+     * 从消息列表中，筛选出对应的会话，并对会话进行更新
+     */
+    private void updateSession(Message... messages) {
+
+        final Set<Session.Identify> identifies = new HashSet<>();
+        for (Message message : messages) {
+            Session.Identify identify = Session.createSessionIdentify(message);
+            identifies.add(identify);
+        }
+
+        DatabaseDefinition definition = FlowManager.getDatabase(AppDatabase.class);
+        definition.beginTransactionAsync(new ITransaction() {
+            @Override
+            public void execute(DatabaseWrapper databaseWrapper) {
+                ModelAdapter<Session> adapter = FlowManager.getModelAdapter(Session.class);
+                Session[] sessions = new Session[identifies.size()];
+
+                int index = 0;
+                for (Session.Identify identify : identifies) {
+
+                    Session session = SessionHelper.findFromLocal(identify.id);
+                    if (session == null) {
+                        //首次聊天，创建一个你和对方的一个会话
+                        session = new Session(identify);
+                    }
+
+                    //把会话刷新到当前Message的最新状态
+                    session.refreshToNow();
+                    adapter.save(session);
+                    sessions[index++] = session;
+                }
+                instance.notifySave(Session.class, sessions);
+            }
+        }).build().execute();
+
     }
 
     public static <Model extends BaseDbModel<Model>> void addChangedListener(Class<Model> tClass,

@@ -48,8 +48,10 @@ dependencies {
     compile rootProject.ext.dependencies.libGlideVersion
     compile rootProject.ext.dependencies.libEasyPMVersion
     compile rootProject.ext.dependencies.libGeTuiVersion
+
     debugCompile rootProject.ext.dependencies.libPandoraLib
-    debugCompile rootProject.ext.dependencies.libPandoraNoOpLib
+    releaseCompile rootProject.ext.dependencies.libPandoraNoOpLib
+
 //    compile(rootProject.ext.dependencies.libEasyPMVersion) {
 //        exclude group: 'com.android.support', module: 'design'
 //    }
@@ -64,8 +66,5 @@ dependencies {
     })
 
     compile project(':factory')
-
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:support-v4:27.+'
     testCompile 'junit:junit:4.12'
 }

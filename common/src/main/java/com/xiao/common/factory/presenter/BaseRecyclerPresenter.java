@@ -77,5 +77,6 @@ public class BaseRecyclerPresenter<ViewModel, View extends BaseContract.Recycler
 
         //进行增量更新
         diffResult.dispatchUpdatesTo(adapter);
+
     }
 }

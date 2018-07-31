@@ -1,6 +1,7 @@
 package com.xiao.mineim.fragment.message;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -145,7 +146,6 @@ public abstract class ChatFragment<InitModel>
     void onSubmitClick() {
 
         if (mSubmit.isActivated()) {
-
             String content = mContent.getText().toString();
             mContent.setText("");
             mPresenter.pushText(content);
@@ -167,6 +167,7 @@ public abstract class ChatFragment<InitModel>
     @Override
     public void onAdapterDataChanged() {
         //界面没有占位布局 ，Recycler 是一直显示着的 所以不需要做任何事情
+        mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount());
     }
 
     /**
@@ -215,6 +216,7 @@ public abstract class ChatFragment<InitModel>
         @BindView(R.id.im_portrait)
         PortraitView mPortrait;
 
+        @Nullable
         @BindView(R.id.loading)
         Loading mLoading;
 

@@ -9,6 +9,7 @@ import com.xiao.factory.data.BaseDbRepository;
 import com.xiao.factory.model.db.Message;
 import com.xiao.factory.model.db.Message_Table;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -54,7 +55,7 @@ public class MessageRepository extends BaseDbRepository<Message>
 
     @Override
     public void onListQueryResult(QueryTransaction transaction, @NonNull List<Message> tResult) {
-
+        Collections.reverse(tResult);
         super.onListQueryResult(transaction, tResult);
 
     }

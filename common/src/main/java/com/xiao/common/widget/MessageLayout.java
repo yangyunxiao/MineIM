@@ -21,6 +21,7 @@ public class MessageLayout extends LinearLayout {
         super(context, attrs, defStyleAttr);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     protected boolean fitSystemWindows(Rect insets) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

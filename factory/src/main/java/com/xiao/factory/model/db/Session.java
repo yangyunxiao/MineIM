@@ -1,10 +1,15 @@
 package com.xiao.factory.model.db;
 
+import android.text.TextUtils;
+
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
+import com.xiao.factory.data.helper.GroupHelper;
+import com.xiao.factory.data.helper.MessageHelper;
+import com.xiao.factory.data.helper.UserHelper;
 import com.xiao.factory.utils.DiffUiDataCallback;
 
 
@@ -19,7 +24,7 @@ import java.util.Objects;
  * @version 1.0.0
  */
 @Table(database = AppDatabase.class)
-public class Session extends BaseModel implements DiffUiDataCallback.UiDataDiffer<Session> {
+public class Session extends BaseDbModel<Session> {
     /**
      * Id, 是Message中的接收者User的Id或者群的Id
      */
@@ -214,6 +219,78 @@ public class Session extends BaseModel implements DiffUiDataCallback.UiDataDiffe
         return identify;
     }
 
+
+    /**
+     * 刷新会话对应的信息为当前Message最新状态
+     */
+    public void refreshToNow() {
+
+        Message message;
+        if (receiverType == Message.RECEIVER_TYPE_GROUP) {
+            message = MessageHelper.findLastWithGroup(id);
+            if (message == null) {
+                if (TextUtils.isEmpty(picture) || TextUtils.isEmpty(this.title)) {
+
+                    Group group = GroupHelper.findFromLocal(id);
+
+                    if (group != null) {
+                        this.picture = group.getPicture();
+                        this.title = group.getName();
+                    }
+
+                    this.message = null;
+                    this.content = "";
+                    this.modifyAt = new Date(System.currentTimeMillis());
+                }
+            } else {
+                if (TextUtils.isEmpty(picture) || TextUtils.isEmpty(this.title)) {
+
+                    Group group = message.getGroup();
+                    group.load();
+                    this.picture = group.getPicture();
+                    this.title = group.getName();
+                }
+
+                this.message = message;
+                this.content = message.getSampleContent();
+                this.modifyAt = message.getCreateAt();
+            }
+        } else {
+            message = MessageHelper.findLastWithUser(id);
+            if (message == null) {
+                if (TextUtils.isEmpty(picture) || TextUtils.isEmpty(this.title)) {
+
+                    User user = UserHelper.searchUserFromLocal(id);
+
+                    if (user != null) {
+                        this.picture = user.getPortrait();
+                        this.title = user.getName();
+                    }
+
+                }
+                this.message = null;
+                this.content = "";
+                this.modifyAt = new Date(System.currentTimeMillis());
+
+            } else {
+
+                if (TextUtils.isEmpty(picture) || TextUtils.isEmpty(this.title)) {
+
+                    User other = message.getOther();
+                    other.load();
+
+                    this.picture = other.getPortrait();
+                    this.title = other.getName();
+
+                }
+
+                this.message = message;
+                this.content = message.getSampleContent();
+                this.modifyAt = message.getCreateAt();
+            }
+        }
+
+    }
 
     /**
      * 对于会话信息，最重要的部分进行提取
