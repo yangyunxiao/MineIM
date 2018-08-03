@@ -2,6 +2,7 @@ package com.xiao.factory.data.helper;
 
 import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import com.raizlabs.android.dbflow.structure.Model;
 import com.raizlabs.android.dbflow.structure.ModelAdapter;
@@ -10,13 +11,16 @@ import com.raizlabs.android.dbflow.structure.database.transaction.ITransaction;
 import com.xiao.factory.data.BaseDbRepository;
 import com.xiao.factory.model.db.AppDatabase;
 import com.xiao.factory.model.db.BaseDbModel;
+import com.xiao.factory.model.db.Group;
 import com.xiao.factory.model.db.GroupMember;
+import com.xiao.factory.model.db.Group_Table;
 import com.xiao.factory.model.db.Message;
 import com.xiao.factory.model.db.Session;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -101,15 +105,42 @@ public class DbHelper {
 
         }
 
-
+        //例外情况
         if (GroupMember.class.equals(tClass)) {
-
-
+            //群成员变更，需要通知对应的群做信息的更新
+            updateGroup((GroupMember[]) models);
         } else if (Message.class.equals(tClass)) {
             //消息变化，通知会话列表更新
             updateSession((Message[]) models);
         }
     }
+
+    /**
+     * 从成员中找出成员对应的群，并对群进行更新
+     */
+    private void updateGroup(GroupMember... members) {
+
+        final Set<String> groupIds = new HashSet<>();
+        for (GroupMember member : members) {
+            groupIds.add(member.getGroup().getId());
+        }
+
+        DatabaseDefinition definition = FlowManager.getDatabase(AppDatabase.class);
+        definition.beginTransactionAsync(new ITransaction() {
+            @Override
+            public void execute(DatabaseWrapper databaseWrapper) {
+
+                List<Group> groups = SQLite.select()
+                        .from(Group.class)
+                        .where(Group_Table.id.in(groupIds))
+                        .queryList();
+
+                //调用直接进行一次通知分发
+                instance.notifySave(Group.class, groups.toArray(new Group[0]));
+            }
+        }).build().execute();
+    }
+
 
     /**
      * 从消息列表中，筛选出对应的会话，并对会话进行更新

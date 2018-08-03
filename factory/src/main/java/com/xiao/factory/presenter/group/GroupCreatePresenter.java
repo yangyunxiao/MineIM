@@ -107,15 +107,42 @@ public class GroupCreatePresenter extends BaseRecyclerPresenter<GroupCreateContr
     @Override
     public void changeSelect(GroupCreateContract.ViewModel model, boolean isSelected) {
 
+        if (isSelected) {
+            users.add(model.author.getId());
+        } else {
+            users.remove(model.author.getId());
+        }
+
     }
 
     @Override
     public void onDataLoadSuccess(GroupCard groupCard) {
 
+        Run.onUiAsync(new Action() {
+            @Override
+            public void call() {
+
+                GroupCreateContract.View view = getView();
+                if (view != null) {
+                    view.onCreateSucceed();
+                }
+
+            }
+        });
     }
 
     @Override
-    public void onDataLoadFailed(@StringRes int failedMsg) {
+    public void onDataLoadFailed(@StringRes final int failedMsg) {
 
+        Run.onUiAsync(new Action() {
+            @Override
+            public void call() {
+
+                GroupCreateContract.View view = getView();
+                if (view != null) {
+                    view.showError(failedMsg);
+                }
+            }
+        });
     }
 }

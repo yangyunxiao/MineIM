@@ -31,6 +31,7 @@ import com.yalantis.ucrop.UCrop;
 import java.io.File;
 
 import butterknife.BindView;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 public class GroupCreateActivity extends ViewToolbarActivity<GroupCreateContract.Presenter>
@@ -65,8 +66,6 @@ public class GroupCreateActivity extends ViewToolbarActivity<GroupCreateContract
     protected void initWidget() {
         super.initWidget();
         setTitle("");
-
-
         mRecycler.setLayoutManager(new LinearLayoutManager(this));
         mRecycler.setAdapter(mAdapter = new Adapter());
     }
@@ -222,6 +221,13 @@ public class GroupCreateActivity extends ViewToolbarActivity<GroupCreateContract
 
         public ViewHolder(View itemView) {
             super(itemView);
+        }
+
+
+        @OnCheckedChanged(R.id.cb_select)
+        void onGroupMemberChecked(boolean isChecked) {
+
+            mPresenter.changeSelect(mData, isChecked);
         }
 
         @Override

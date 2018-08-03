@@ -8,6 +8,7 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.xiao.factory.Factory;
 import com.xiao.factory.model.api.account.AccountResponseModel;
 import com.xiao.factory.model.db.User;
+import com.xiao.factory.model.db.User_Table;
 
 public class Account {
 

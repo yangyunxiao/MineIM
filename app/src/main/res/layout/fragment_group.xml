@@ -4,13 +4,22 @@
     android:layout_height="match_parent"
     tools:context="com.xiao.mineim.fragment.main.GroupFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textColor="@color/colorAccent"
-        android:gravity="center"
-        android:textSize="@dimen/font_24"
-        android:text="Group" />
+        android:background="@drawable/bg_main_recycler"
+        android:clipToPadding="false"
+        android:elevation="1dp"
+        android:outlineProvider="bounds"
+        android:paddingBottom="@dimen/len_12"
+        android:paddingTop="@dimen/len_12"
+        android:visibility="gone"
+        tools:targetApi="lollipop" />
+
+    <com.xiao.common.widget.EmptyView
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>
