@@ -172,7 +172,7 @@ public class UpdateInfoFragment extends ViewFragment<UpdateInfoContract.Presente
             }
         } else if (resultCode == UCrop.RESULT_ERROR) {
 
-            final Throwable cropError = UCrop.getError(data);
+            Application.showToast(R.string.data_rsp_error_unknown);
 
         }
 

@@ -137,8 +137,14 @@ public class MainActivity extends BaseActivity
 
     @OnClick(R.id.main_button_action)
     void onActionClick() {
+        if (Objects.equal(mNavigationHelper.getCurrentTab().mExtra, R.string.title_group)) {
 
-        AccountActivity.show(MainActivity.this);
+            GroupCreateActivity.show(this);
+        } else {
+
+            SearchActivity.show(this, SearchActivity.TYPE_CONTACT);
+        }
+
 
     }
 

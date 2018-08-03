@@ -28,9 +28,12 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
+    compile project(':common')
     compile rootProject.ext.dependencies.libAliOssVersion
+
     compile rootProject.ext.dependencies.libRetrofitVersion
     compile rootProject.ext.dependencies.libRetrofitGsonVersion
+
     compile(rootProject.ext.dependencies.libOkHttpLogVersion) {
         exclude group: 'org.json', module: 'json'
     }
@@ -44,5 +47,4 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
 
-    compile project(':common')
 }
