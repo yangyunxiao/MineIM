@@ -12,7 +12,7 @@ import com.xiao.factory.model.db.AppDatabase;
 @QueryModel(database = AppDatabase.class)
 public class MemberUserModel {
     @Column
-    private String userId;
+    public String userId;
     @Column
     public String name;
     @Column
