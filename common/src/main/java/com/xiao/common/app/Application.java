@@ -11,10 +11,14 @@ import net.qiujuer.genius.kit.handler.Run;
 import net.qiujuer.genius.kit.handler.runable.Action;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Application extends android.app.Application {
 
     private static Application instance;
+
+    protected List<Activity> mActivityList = new ArrayList<>();
 
     @Override
     public void onCreate() {
@@ -23,6 +27,7 @@ public class Application extends android.app.Application {
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                mActivityList.add(activity);
             }
 
             @Override
@@ -52,12 +57,14 @@ public class Application extends android.app.Application {
 
             @Override
             public void onActivityDestroyed(Activity activity) {
-
+                mActivityList.remove(activity);
             }
         });
     }
 
+    public void logout(){
 
+    }
 
     public static Application getInstance() {
         return instance;

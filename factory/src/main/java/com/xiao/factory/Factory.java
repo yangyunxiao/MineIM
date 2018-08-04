@@ -1,5 +1,6 @@
 package com.xiao.factory;
 
+import android.app.Activity;
 import android.support.annotation.StringRes;
 import android.util.Log;
 
@@ -134,7 +135,7 @@ public class Factory {
                 break;
             case RspModel.ERROR_ACCOUNT_TOKEN:
                 Application.showToast(R.string.data_rsp_error_account_token);
-//                instance.logout();
+                instance.logout();
                 break;
             case RspModel.ERROR_ACCOUNT_LOGIN:
                 decodeRspCode(R.string.data_rsp_error_account_login, callback);
@@ -223,6 +224,8 @@ public class Factory {
      * 收到账户退出的消息需要进行账户退出重新登录
      */
     private void logout() {
+
+        Application.getInstance().logout();
 
     }
 
