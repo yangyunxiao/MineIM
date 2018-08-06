@@ -59,7 +59,8 @@
             android:theme="@style/AppTheme.Main" />
         <activity android:name=".activity.ChatActivity" />
         <activity android:name=".activity.PersonalActivity" />
-        <activity android:name=".activity.GroupCreateActivity"></activity>
+        <activity android:name=".activity.GroupCreateActivity" />
+        <activity android:name=".activity.GroupMemberActivity"></activity>
     </application>
 
 </manifest>
