@@ -48,6 +48,7 @@ dependencies {
     compile rootProject.ext.dependencies.libGlideVersion
     compile rootProject.ext.dependencies.libEasyPMVersion
     compile rootProject.ext.dependencies.libGeTuiVersion
+    compile rootProject.ext.dependencies.libAirPanelVersion
 
     debugCompile rootProject.ext.dependencies.libPandoraLib
     releaseCompile rootProject.ext.dependencies.libPandoraNoOpLib

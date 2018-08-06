@@ -1,6 +1,7 @@
 package com.xiao.mineim.fragment.message;
 
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -10,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -24,9 +26,12 @@ import com.xiao.factory.persisitence.Account;
 import com.xiao.factory.presenter.message.ChatContract;
 import com.xiao.mineim.R;
 import com.xiao.mineim.activity.ChatActivity;
+import com.xiao.mineim.fragment.panel.PanelFragment;
 
 import net.qiujuer.genius.ui.compat.UiCompat;
 import net.qiujuer.genius.ui.widget.Loading;
+import net.qiujuer.widget.airpanel.AirPanel;
+import net.qiujuer.widget.airpanel.Util;
 
 import java.util.Objects;
 
@@ -64,6 +69,10 @@ public abstract class ChatFragment<InitModel>
     @BindView(R.id.chat_image_submit)
     View mSubmit;
 
+    //控制顶部面案与软键盘过度的Boss控件
+    private AirPanel.Boss mPanelBoss;
+    private PanelFragment mPanelFragment;
+
     @Override
     protected void initArgs(Bundle bundle) {
         super.initArgs(bundle);
@@ -71,8 +80,34 @@ public abstract class ChatFragment<InitModel>
     }
 
     @Override
+    protected int getContentLayoutID() {
+        return R.layout.fragment_chat_common;
+    }
+
+    @LayoutRes
+    protected abstract int getHeaderLayoutId();
+
+    @Override
     protected void initWidget(View rootView) {
+        //拿到占位布局
+        //替换顶部布局一定需要发生在super之前
+        //防止控件绑定异常
+        ViewStub stub = rootView.findViewById(R.id.view_stub_header);
+        stub.setLayoutResource(getHeaderLayoutId());
+        stub.inflate();
         super.initWidget(rootView);
+
+        mPanelBoss = rootView.findViewById(R.id.lay_content);
+        mPanelBoss.setup(new AirPanel.PanelListener() {
+            @Override
+            public void requestHideSoftKeyboard() {
+                //请求隐藏软件盘
+                Util.hideKeyboard(mContent);
+            }
+        });
+
+        mPanelFragment = (PanelFragment) getChildFragmentManager().findFragmentById(R.id.frag_panel);
+
         initToolBar();
         initAppbar();
         initEditContent();
@@ -135,11 +170,15 @@ public abstract class ChatFragment<InitModel>
     @OnClick(R.id.chat_image_face)
     void onFaceClick() {
 
+        mPanelBoss.openPanel();
+        mPanelFragment.showFace();
+
     }
 
     @OnClick(R.id.chat_image_record)
     void onRecordClick() {
-
+        mPanelBoss.openPanel();
+        mPanelFragment.showRecord();
     }
 
     @OnClick(R.id.chat_image_submit)

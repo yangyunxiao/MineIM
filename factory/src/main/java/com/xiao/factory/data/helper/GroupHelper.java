@@ -19,6 +19,7 @@ import com.xiao.factory.model.db.view.MemberUserModel;
 import com.xiao.factory.net.Network;
 import com.xiao.factory.net.RemoteService;
 import com.xiao.factory.presenter.group.GroupCreatePresenter;
+import com.xiao.factory.presenter.search.SearchGroupPresenter;
 
 import java.io.IOException;
 import java.util.List;
@@ -197,5 +198,32 @@ public class GroupHelper {
                 .orderBy(GroupMember_Table.user_id, true)
                 .limit(size)
                 .queryCustomList(MemberUserModel.class);
+    }
+
+    public static Call search(String content, final DataSource.Callback<List<GroupCard>> callback) {
+
+        RemoteService service = Network.remote();
+
+        Call<RspModel<List<GroupCard>>> call = service.groupSearch(content);
+
+        call.enqueue(new Callback<RspModel<List<GroupCard>>>() {
+            @Override
+            public void onResponse(Call<RspModel<List<GroupCard>>> call, Response<RspModel<List<GroupCard>>> response) {
+                RspModel<List<GroupCard>> rspModel = response.body();
+                if (rspModel.success()) {
+                    callback.onDataLoadSuccess(rspModel.getResult());
+                } else {
+                    Factory.decodeRspCode(rspModel, callback);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RspModel<List<GroupCard>>> call, Throwable t) {
+
+                callback.onDataLoadFailed(R.string.data_network_error);
+
+            }
+        });
+        return call;
     }
 }

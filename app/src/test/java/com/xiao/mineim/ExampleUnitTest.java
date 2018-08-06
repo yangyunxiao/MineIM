@@ -2,6 +2,9 @@ package com.xiao.mineim;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
@@ -17,6 +20,10 @@ public class ExampleUnitTest {
 
     @Test
     public void test(){
-        System.out.println(false || true && true);
+
+        List<Integer> intList = new ArrayList<>();
+        intList.add(4);
+
+        System.out.println(intList.contains(4));
     }
 }

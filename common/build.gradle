@@ -37,6 +37,7 @@ dependencies {
     compile rootProject.ext.dependencies.libQiujuerKitHandlerVersion
     compile rootProject.ext.dependencies.libCircleImageViewVersion
     compile rootProject.ext.dependencies.libGlideVersion
+    compile rootProject.ext.dependencies.libAirPanelVersion
 
 
     testCompile 'junit:junit:4.12'
