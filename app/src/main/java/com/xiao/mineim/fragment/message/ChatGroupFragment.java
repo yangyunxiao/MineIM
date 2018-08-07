@@ -20,11 +20,13 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.xiao.common.app.BaseFragment;
 import com.xiao.factory.model.db.Group;
+import com.xiao.factory.model.db.GroupMember;
 import com.xiao.factory.model.db.Message;
 import com.xiao.factory.model.db.view.MemberUserModel;
 import com.xiao.factory.presenter.message.ChatContract;
 import com.xiao.factory.presenter.message.ChatGroupPresenter;
 import com.xiao.mineim.R;
+import com.xiao.mineim.activity.GroupMemberActivity;
 import com.xiao.mineim.activity.PersonalActivity;
 
 import java.util.List;
@@ -96,7 +98,7 @@ public class ChatGroupFragment extends ChatFragment<Group>
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     if (item.getItemId() == R.id.action_add) {
-                        //TODO 群成员列表
+                        GroupMemberActivity.showAdmin(getContext(), mReceiverId);
                         return true;
                     }
                     return false;
@@ -138,7 +140,7 @@ public class ChatGroupFragment extends ChatFragment<Group>
                 mMemberMore.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //TODO 群成员界面
+                        GroupMemberActivity.show(getContext(), mReceiverId);
                     }
                 });
             } else {

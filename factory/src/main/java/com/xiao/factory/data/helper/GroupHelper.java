@@ -7,6 +7,7 @@ import com.xiao.factory.Factory;
 import com.xiao.factory.R;
 import com.xiao.factory.model.api.RspModel;
 import com.xiao.factory.model.api.group.GroupCreateModel;
+import com.xiao.factory.model.api.group.GroupMemberAddModel;
 import com.xiao.factory.model.card.GroupCard;
 import com.xiao.factory.model.card.GroupMemberCard;
 import com.xiao.factory.model.db.Group;
@@ -19,6 +20,7 @@ import com.xiao.factory.model.db.view.MemberUserModel;
 import com.xiao.factory.net.Network;
 import com.xiao.factory.net.RemoteService;
 import com.xiao.factory.presenter.group.GroupCreatePresenter;
+import com.xiao.factory.presenter.group.GroupMemberAddPresenter;
 import com.xiao.factory.presenter.search.SearchGroupPresenter;
 
 import java.io.IOException;
@@ -226,4 +228,37 @@ public class GroupHelper {
         });
         return call;
     }
+
+    /**
+     * 网络请求添加群成员
+     */
+    public static void addMembers(String groupId, GroupMemberAddModel model, final DataSource.Callback<List<GroupMemberCard>> callback) {
+
+        RemoteService remoteService = Network.remote();
+        remoteService.groupMemberAdd(groupId, model)
+                .enqueue(new Callback<RspModel<List<GroupMemberCard>>>() {
+                    @Override
+                    public void onResponse(Call<RspModel<List<GroupMemberCard>>> call, Response<RspModel<List<GroupMemberCard>>> response) {
+
+                        RspModel<List<GroupMemberCard>> rspModel = response.body();
+                        if (rspModel.success()) {
+                            List<GroupMemberCard> memberCards = rspModel.getResult();
+
+                            if (memberCards != null && memberCards.size() > 0) {
+                                Factory.getGroupCenter().dispatch(memberCards.toArray(new GroupMemberCard[0]));
+                                callback.onDataLoadSuccess(memberCards);
+                            }
+                        } else {
+                            Factory.decodeRspCode(rspModel, null);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<RspModel<List<GroupMemberCard>>> call, Throwable t) {
+
+                        callback.onDataLoadFailed(R.string.data_network_error);
+                    }
+                });
+    }
+
 }
