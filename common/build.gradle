@@ -38,8 +38,10 @@ dependencies {
     compile rootProject.ext.dependencies.libCircleImageViewVersion
     compile rootProject.ext.dependencies.libGlideVersion
     compile rootProject.ext.dependencies.libAirPanelVersion
+    compile rootProject.ext.dependencies.libGsonVersion
 
+    compile project(':lang')
+    compile project(':face-res')
 
     testCompile 'junit:junit:4.12'
-    compile project(':lang')
 }

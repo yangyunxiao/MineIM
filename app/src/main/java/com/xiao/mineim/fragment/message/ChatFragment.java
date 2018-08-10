@@ -45,7 +45,7 @@ import butterknife.OnClick;
 public abstract class ChatFragment<InitModel>
         extends ViewFragment<ChatContract.Presenter>
         implements AppBarLayout.OnOffsetChangedListener,
-        ChatContract.View<InitModel> {
+        ChatContract.View<InitModel>, PanelFragment.PanelCallback {
 
     protected String mReceiverId;
     protected Adapter mAdapter;
@@ -107,6 +107,7 @@ public abstract class ChatFragment<InitModel>
         });
 
         mPanelFragment = (PanelFragment) getChildFragmentManager().findFragmentById(R.id.frag_panel);
+        mPanelFragment.setup(this);
 
         initToolBar();
         initAppbar();
@@ -207,6 +208,11 @@ public abstract class ChatFragment<InitModel>
     public void onAdapterDataChanged() {
         //界面没有占位布局 ，Recycler 是一直显示着的 所以不需要做任何事情
         mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount());
+    }
+
+    @Override
+    public EditText getInputEditText() {
+        return mContent;
     }
 
     /**
