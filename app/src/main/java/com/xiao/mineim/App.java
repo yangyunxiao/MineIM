@@ -9,6 +9,8 @@ import com.xiao.mineim.activity.AccountActivity;
 
 import java.util.List;
 
+import tech.linjiang.pandora.Pandora;
+
 //import tech.linjiang.pandora.Pandora;
 
 
@@ -24,9 +26,9 @@ public class App extends Application {
         //推送进行初始化
         PushManager.getInstance().initialize(this, null);
 
-//        Pandora.init(this);
-//
-//        Pandora.get().open();
+        Pandora.init(this);
+
+        Pandora.get().open();
     }
 
     @Override

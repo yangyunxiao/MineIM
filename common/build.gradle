@@ -39,6 +39,7 @@ dependencies {
     compile rootProject.ext.dependencies.libGlideVersion
     compile rootProject.ext.dependencies.libAirPanelVersion
     compile rootProject.ext.dependencies.libGsonVersion
+    compile rootProject.ext.dependencies.qiujuerLameLib
 
     compile project(':lang')
     compile project(':face-res')

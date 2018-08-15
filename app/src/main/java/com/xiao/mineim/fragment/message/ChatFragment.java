@@ -9,14 +9,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.xiao.common.app.ViewFragment;
+import com.xiao.common.face.Face;
 import com.xiao.common.widget.PortraitView;
 import com.xiao.common.widget.adapter.TextWatcherAdapter;
 import com.xiao.common.widget.recycler.RecyclerAdapter;
@@ -28,11 +32,13 @@ import com.xiao.mineim.R;
 import com.xiao.mineim.activity.ChatActivity;
 import com.xiao.mineim.fragment.panel.PanelFragment;
 
+import net.qiujuer.genius.ui.Ui;
 import net.qiujuer.genius.ui.compat.UiCompat;
 import net.qiujuer.genius.ui.widget.Loading;
 import net.qiujuer.widget.airpanel.AirPanel;
 import net.qiujuer.widget.airpanel.Util;
 
+import java.io.File;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -195,9 +201,19 @@ public abstract class ChatFragment<InitModel>
     }
 
     private void onMoreClick() {
-        //TODO
+        mPanelBoss.openPanel();
+        mPanelFragment.showGallery();
     }
 
+    @Override
+    public void onSendGallery(String[] paths) {
+        mPresenter.pushImages(paths);
+    }
+
+    @Override
+    public void onRecordDone(File file, long time) {
+        //TODO 语音回调
+    }
 
     @Override
     public RecyclerAdapter<Message> getRecyclerAdapter() {
@@ -335,7 +351,11 @@ public abstract class ChatFragment<InitModel>
         protected void onBind(Message message) {
             super.onBind(message);
 
-            mContent.setText(message.getContent());
+            Spannable spannable = new SpannableString(message.getContent());
+            //解析表情
+            Face.decode(mContent, spannable, (int) Ui.dipToPx(getResources(), 20));
+
+            mContent.setText(spannable);
         }
     }
 
@@ -360,6 +380,9 @@ public abstract class ChatFragment<InitModel>
      */
     class PicHolder extends BaseHolder {
 
+        @BindView(R.id.im_image)
+        ImageView mContent;
+
         public PicHolder(View itemView) {
             super(itemView);
         }
@@ -367,7 +390,13 @@ public abstract class ChatFragment<InitModel>
         @Override
         protected void onBind(Message message) {
             super.onBind(message);
-            //TODO
+
+            String content = message.getContent();
+
+            Glide.with(ChatFragment.this)
+                    .load(content)
+                    .fitCenter()
+                    .into(mContent);
         }
     }
 }

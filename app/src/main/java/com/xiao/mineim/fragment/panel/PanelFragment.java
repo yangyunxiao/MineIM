@@ -15,16 +15,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.xiao.common.app.BaseFragment;
 import com.xiao.common.face.Face;
 import com.xiao.common.utils.UiTool;
+import com.xiao.common.widget.GalleryView;
 import com.xiao.common.widget.recycler.RecyclerAdapter;
 import com.xiao.mineim.R;
 import com.xiao.mineim.fragment.message.ChatFragment;
 
 import net.qiujuer.genius.ui.Ui;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -33,6 +36,7 @@ import java.util.List;
 public class PanelFragment extends BaseFragment {
 
     private PanelCallback mPanelCallback;
+    private View mFacePanel, mGalleryPanel, mRecordPanel;
 
 
     public PanelFragment() {
@@ -54,7 +58,7 @@ public class PanelFragment extends BaseFragment {
 
 
     private void initFace(View rootView) {
-        View facePanel = rootView.findViewById(R.id.lay_panel_face);
+        View facePanel = mFacePanel = rootView.findViewById(R.id.lay_panel_face);
 
         View backspace = facePanel.findViewById(R.id.im_backspace);
         backspace.setOnClickListener(new View.OnClickListener() {
@@ -145,18 +149,53 @@ public class PanelFragment extends BaseFragment {
 
     private void initGallery(View rootView) {
 
+        final View galleryPanel = mGalleryPanel = rootView.findViewById(R.id.lay_gallery_panel);
+        final GalleryView galleryView = galleryPanel.findViewById(R.id.view_gallery);
+        final TextView selectedSize = galleryPanel.findViewById(R.id.txt_gallery_select_count);
+
+        galleryView.setup(getLoaderManager(), new GalleryView.SelectedChangedListener() {
+            @Override
+            public void onSelectedChanged(int selectedImageCount) {
+                String resStr = getText(R.string.label_gallery_select_max_size).toString();
+                selectedSize.setText(String.format(resStr, selectedImageCount));
+            }
+        });
+
+        galleryPanel.findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onGallerySendClick(galleryView, galleryView.getSelectedImagePaths());
+            }
+        });
+
+    }
+
+    private void onGallerySendClick(GalleryView galleryView, String[] selectedImagePaths) {
+
+        galleryView.clearSelectedImages();
+
+        PanelCallback callback = mPanelCallback;
+        if (callback == null) {
+            return;
+        }
+
+        callback.onSendGallery(selectedImagePaths);
+
     }
 
     public void showFace() {
-
+        mGalleryPanel.setVisibility(View.GONE);
+        mFacePanel.setVisibility(View.VISIBLE);
     }
 
     public void showRecord() {
-
+        mGalleryPanel.setVisibility(View.GONE);
+        mFacePanel.setVisibility(View.GONE);
     }
 
     public void showGallery() {
-
+        mGalleryPanel.setVisibility(View.VISIBLE);
+        mFacePanel.setVisibility(View.GONE);
     }
 
     public void setup(PanelCallback callback) {
@@ -168,5 +207,9 @@ public class PanelFragment extends BaseFragment {
     public interface PanelCallback {
 
         EditText getInputEditText();
+
+        void onSendGallery(String[] paths);
+
+        void onRecordDone(File file, long time);
     }
 }

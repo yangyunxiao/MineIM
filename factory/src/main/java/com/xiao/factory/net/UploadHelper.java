@@ -24,7 +24,7 @@ public class UploadHelper {
 
     private static final String TAG = UploadHelper.class.getName();
 
-    private static final String ENDPOINT = "http://oss-cn-shenzhen.aliyuncs.com";
+    public static final String ENDPOINT = "http://oss-cn-shenzhen.aliyuncs.com";
 
     private static final String BUCKET_NAME = "xiao-talker";
 

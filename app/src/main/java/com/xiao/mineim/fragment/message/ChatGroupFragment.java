@@ -29,6 +29,7 @@ import com.xiao.mineim.R;
 import com.xiao.mineim.activity.GroupMemberActivity;
 import com.xiao.mineim.activity.PersonalActivity;
 
+import java.io.File;
 import java.util.List;
 
 import butterknife.BindView;
@@ -195,4 +196,5 @@ public class ChatGroupFragment extends ChatFragment<Group>
         }
 
     }
+
 }

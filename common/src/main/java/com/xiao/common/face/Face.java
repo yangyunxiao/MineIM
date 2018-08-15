@@ -3,19 +3,30 @@ package com.xiao.common.face;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.style.ImageSpan;
 import android.util.ArrayMap;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
+import com.xiao.common.R;
 import com.xiao.common.utils.StreamUtil;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,6 +38,8 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -217,6 +230,113 @@ public class Face {
             return FACE_MAP.get(key);
         }
         return null;
+    }
+
+
+    /**
+     * 从spannable解析表情并替换显示
+     */
+    public static Spannable decode(@NonNull View target, final Spannable spannable, final int size) {
+
+        if (spannable == null) {
+            return null;
+        }
+
+        String str = spannable.toString();
+        if (TextUtils.isEmpty(str)) {
+            return null;
+        }
+
+        final Context context = target.getContext();
+
+        Pattern pattern = Pattern.compile("(\\[[^\\[\\]:\\s\\n]+\\])");
+        Matcher matcher = pattern.matcher(str);
+
+        while (matcher.find()) {
+            String key = matcher.group();
+
+            if (TextUtils.isEmpty(key)) {
+                continue;
+            }
+
+            Bean bean = get(context, key.replace("[", "").replace("]", ""));
+            if (bean == null) {
+                continue;
+            }
+
+            final int start = matcher.start();
+            final int end = matcher.end();
+
+            ImageSpan span = new FaceSpan(context, target, bean.preview, size);
+
+            spannable.setSpan(span, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+
+        return spannable;
+    }
+
+    /**
+     * 表情标示
+     */
+    public static class FaceSpan extends ImageSpan {
+
+        private Drawable mDrawable;
+        private View mView;
+        private int mSize;
+
+        public FaceSpan(Context context, View view, Object source, final int size) {
+            super(context, R.drawable.default_face, ALIGN_BOTTOM);
+            this.mView = view;
+            this.mSize = size;
+
+            Glide.with(context)
+                    .load(source)
+                    .fitCenter()
+                    .into(new SimpleTarget<GlideDrawable>(size,size) {
+                        @Override
+                        public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+
+                            mDrawable = resource.getCurrent();
+
+                            int width = mDrawable.getIntrinsicWidth();
+                            int height = mDrawable.getIntrinsicHeight();
+
+                            mDrawable.setBounds(0, 0, width > 0 ? width : size,
+                                    height > 0 ? height : size);
+
+                            //通知刷新
+                            mView.invalidate();
+                        }
+                    });
+        }
+
+        @Override
+        public int getSize(Paint paint, CharSequence text, int start, int end, Paint.FontMetricsInt fm) {
+            Rect rect = mDrawable != null ? mDrawable.getBounds() :
+                    new Rect(0, 0, mSize, mSize);
+
+            if (fm != null) {
+                fm.ascent = -rect.bottom;
+                fm.descent = 0;
+
+                fm.top = fm.ascent;
+                fm.bottom = 0;
+            }
+            return rect.right;
+        }
+
+        @Override
+        public Drawable getDrawable() {
+            //复写拿Drawable的方法，当然这可能返回的是null
+            return mDrawable;
+        }
+
+        @Override
+        public void draw(Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom, Paint paint) {
+            if (mDrawable!=null){
+                super.draw(canvas, text, start, end, x, top, y, bottom, paint);
+            }
+        }
     }
 
 

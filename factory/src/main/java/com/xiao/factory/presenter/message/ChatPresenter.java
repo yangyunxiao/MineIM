@@ -3,6 +3,7 @@ package com.xiao.factory.presenter.message;
 import android.support.v7.util.DiffUtil;
 
 import com.xiao.factory.data.helper.MessageHelper;
+import com.xiao.factory.data.message.MessageCenter;
 import com.xiao.factory.data.message.MessageDataSource;
 import com.xiao.factory.model.api.message.MsgCreateModel;
 import com.xiao.factory.model.db.Message;
@@ -56,6 +57,19 @@ public class ChatPresenter<View extends ChatContract.View>
     @Override
     public void pushImages(String[] paths) {
 
+        if (paths == null || paths.length == 0) {
+            return;
+        }
+
+        for (String path : paths) {
+            MsgCreateModel model = new MsgCreateModel.Builder()
+                    .receiver(mReceiverId, mReceiverType)
+                    .content(path, Message.TYPE_PIC)
+                    .build();
+
+            //进行网络发送
+            MessageHelper.push(model);
+        }
     }
 
     @Override

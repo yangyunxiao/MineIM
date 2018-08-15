@@ -34,6 +34,8 @@ ext {
             libQiujuerResVersion         : "net.qiujuer.genius:res:$qiujuerLibVersion",
             libQiujuerKitHandlerVersion  : "net.qiujuer.genius:kit-handler:$qiujuerLibVersion",
             libQiujuerKitReflectVersion  : "net.qiujuer.genius:kit-reflect:$qiujuerLibVersion",
+            qiujuerLameLib               : "net.qiujuer.lame:lame:1.0.0",
+
             libAirPanelVersion           : "net.qiujuer.widget:airpanel:1.1.0",
 
             libCircleImageViewVersion    : "de.hdodenhof:circleimageview:2.1.0",
@@ -64,6 +66,7 @@ ext {
 
             libPandoraLib                : "com.github.whataa:pandora:${pandora_version}",
             libPandoraNoOpLib            : "com.github.whataa:pandora-no-op:${pandora_version}",
+
 
     ]
 }

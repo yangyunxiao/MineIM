@@ -4,6 +4,8 @@ package com.xiao.mineim.fragment.main;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.xiao.common.app.BaseFragment;
 import com.xiao.common.app.ViewFragment;
+import com.xiao.common.face.Face;
 import com.xiao.common.utils.DateTimeUtil;
 import com.xiao.common.widget.EmptyView;
 import com.xiao.common.widget.PortraitView;
@@ -20,6 +23,8 @@ import com.xiao.factory.presenter.message.SessionContract;
 import com.xiao.factory.presenter.message.SessionPresenter;
 import com.xiao.mineim.R;
 import com.xiao.mineim.activity.ChatActivity;
+
+import net.qiujuer.genius.ui.Ui;
 
 import butterknife.BindView;
 
@@ -117,7 +122,11 @@ public class ActiveFragment extends ViewFragment<SessionContract.Presenter>
         protected void onBind(Session session) {
             mPortraitView.setup(Glide.with(ActiveFragment.this), session.getPicture());
             mName.setText(session.getTitle());
-            mContent.setText(TextUtils.isEmpty(session.getContent()) ? "" : session.getContent());
+
+            Spannable spannable = new SpannableString(session.getContent());
+            //解析表情
+            Face.decode(mContent, spannable, (int) Ui.dipToPx(getResources(), 20));
+            mContent.setText(TextUtils.isEmpty(session.getContent()) ? "" : spannable);
             mTime.setText(DateTimeUtil.getSampleDate(session.getModifyAt()));
         }
     }

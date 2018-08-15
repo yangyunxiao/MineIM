@@ -1,7 +1,16 @@
 package com.xiao.factory.data.helper;
 
+import android.os.SystemClock;
+import android.text.TextUtils;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.Target;
 import com.raizlabs.android.dbflow.sql.language.OperatorGroup;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.xiao.common.Common;
+import com.xiao.common.app.Application;
+import com.xiao.common.utils.PicturesCompressor;
+import com.xiao.common.utils.StreamUtil;
 import com.xiao.factory.Factory;
 import com.xiao.factory.model.api.RspModel;
 import com.xiao.factory.model.api.message.MsgCreateModel;
@@ -10,6 +19,10 @@ import com.xiao.factory.model.db.Message;
 import com.xiao.factory.model.db.Message_Table;
 import com.xiao.factory.net.Network;
 import com.xiao.factory.net.RemoteService;
+import com.xiao.factory.net.UploadHelper;
+
+import java.io.File;
+import java.util.concurrent.ExecutionException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,9 +58,42 @@ public class MessageHelper {
                     return;
                 }
 
-                //TODO 如果是文件类型的消息，则需要先上传在发送
+                //发送是需要通知界面更新状态
                 final MessageCard card = model.buildCard();
                 Factory.getMessageCenter().dispatch(card);
+
+                //发送文件消息分两步，上传到云服务器，消息push到我们自己的服务器
+
+                //如果是文件类型的(语音，图片，文件)  需要先上传后才发送
+                if (card.getType() != Message.TYPE_STR) {
+                    if (!card.getContent().startsWith(UploadHelper.ENDPOINT)) {
+
+                        String content;
+                        switch (card.getType()) {
+                            case Message.TYPE_PIC:
+                                content = uploadPicture(card.getContent());
+                                break;
+                            case Message.TYPE_AUDIO:
+                                content = uploadAudio(card.getContent());
+                                break;
+                            default:
+                                content = "";
+                                break;
+                        }
+
+                        if (TextUtils.isEmpty(content)) {
+                            card.setStatus(Message.STATUS_FAILED);
+                            Factory.getMessageCenter().dispatch(card);
+                        }
+
+                        card.setContent(content);
+                        Factory.getMessageCenter().dispatch(card);
+
+                        //因为卡片的内容改变了，而我们上传到服务器是使用的model
+                        //因此model跟着刷新
+                        model.refreshByCard();
+                    }
+                }
 
                 //直接发送， 进行网络调度
                 RemoteService service = Network.remote();
@@ -80,6 +126,52 @@ public class MessageHelper {
                 });
             }
         });
+    }
+
+    /**
+     * 上传图片
+     */
+    private static String uploadPicture(String path) {
+        File file = null;
+
+        //通过Glide的缓存区间解决了图片外部权限的问题
+        try {
+            file = Glide.with(Factory.application())
+                    .load(path)
+                    .downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                    .get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        if (file != null) {
+
+            //进行压缩
+            String cacheDir = Application.getCacheDirFile().getAbsolutePath();
+            String tempFile = String.format("%s/image/Cache_%s.png", cacheDir, SystemClock.uptimeMillis());
+
+            try {
+
+                if (PicturesCompressor.compressImage(file.getAbsolutePath(), tempFile,
+                        Common.Constance.MAX_UPLOAD_IMAGE_LENGTH)) {
+
+                    String ossPath = UploadHelper.uploadImage(tempFile);
+                    StreamUtil.delete(tempFile);
+                    return ossPath;
+                }
+            } catch (Exception exception) {
+
+                exception.printStackTrace();
+            }
+        }
+
+        return null;
+    }
+
+    private static String uploadAudio(String content) {
+        return null;
     }
 
     /**
