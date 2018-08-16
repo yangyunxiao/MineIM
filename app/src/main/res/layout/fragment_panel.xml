@@ -13,4 +13,8 @@
         layout="@layout/lay_panel_gallery"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <include
+        layout="@layout/lay_panel_record"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </FrameLayout>

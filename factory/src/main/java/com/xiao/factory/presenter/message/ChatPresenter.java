@@ -1,6 +1,7 @@
 package com.xiao.factory.presenter.message;
 
 import android.support.v7.util.DiffUtil;
+import android.text.TextUtils;
 
 import com.xiao.factory.data.helper.MessageHelper;
 import com.xiao.factory.data.message.MessageCenter;
@@ -50,7 +51,20 @@ public class ChatPresenter<View extends ChatContract.View>
     }
 
     @Override
-    public void pushAudio(String path) {
+    public void pushAudio(String path, long time) {
+        if (TextUtils.isEmpty(path)) {
+            return;
+        }
+
+        //构建一个新的消息
+        MsgCreateModel model = new MsgCreateModel.Builder()
+                .receiver(mReceiverId, mReceiverType)
+                .content(path, Message.TYPE_AUDIO)
+                .attach(String.valueOf(time))
+                .build();
+
+        //发送
+        MessageHelper.push(model);
 
     }
 

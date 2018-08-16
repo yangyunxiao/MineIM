@@ -17,11 +17,15 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.xiao.common.app.Application;
 import com.xiao.common.app.BaseFragment;
 import com.xiao.common.face.Face;
+import com.xiao.common.tools.AudioRecordHelper;
 import com.xiao.common.utils.UiTool;
+import com.xiao.common.widget.AudioRecordView;
 import com.xiao.common.widget.GalleryView;
 import com.xiao.common.widget.recycler.RecyclerAdapter;
+import com.xiao.mineim.App;
 import com.xiao.mineim.R;
 import com.xiao.mineim.fragment.message.ChatFragment;
 
@@ -144,6 +148,66 @@ public class PanelFragment extends BaseFragment {
     }
 
     private void initRecord(View rootView) {
+
+        View recordView = mRecordPanel = rootView.findViewById(R.id.lay_panel_record);
+
+        AudioRecordView audioRecordView = recordView.findViewById(R.id.view_audio_record);
+
+        //录音的缓存文件
+        File tempFile = App.getAudioTmpFile(true);
+        final AudioRecordHelper helper = new AudioRecordHelper(tempFile, new AudioRecordHelper.RecordCallback() {
+            @Override
+            public void onRecordStart() {
+
+            }
+
+            @Override
+            public void onProgress(long time) {
+
+            }
+
+            @Override
+            public void onRecordDone(File file, long time) {
+
+                //录音时间小于一秒钟  不发送
+                if (time < 1000) {
+                    return;
+                }
+
+                File audioFile = App.getAudioTmpFile(false);
+                if (file.renameTo(audioFile)) {
+
+                    PanelCallback panelCallback = mPanelCallback;
+                    if (panelCallback != null) {
+                        panelCallback.onRecordDone(audioFile, time);
+                    }
+                }
+            }
+        });
+
+        audioRecordView.setup(new AudioRecordView.Callback() {
+            @Override
+            public void requestStartRecord() {
+                helper.recordAsync();
+            }
+
+            @Override
+            public void requestStopRecord(int type) {
+
+                switch (type) {
+                    case AudioRecordView.END_TYPE_CANCEL:
+                    case AudioRecordView.END_TYPE_DELETE:
+                        //删除和取消都代表取消
+                        helper.stop(true);
+                        break;
+                    case AudioRecordView.END_TYPE_NONE:
+                    case AudioRecordView.END_TYPE_PLAY:
+                        //播放暂时当中就是想要发送
+                        helper.stop(false);
+                        break;
+                }
+            }
+        });
 
     }
 

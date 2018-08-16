@@ -12,6 +12,7 @@ import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.EditText;
@@ -19,8 +20,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.xiao.common.app.Application;
 import com.xiao.common.app.ViewFragment;
 import com.xiao.common.face.Face;
+import com.xiao.common.tools.AudioPlayHelper;
 import com.xiao.common.widget.PortraitView;
 import com.xiao.common.widget.adapter.TextWatcherAdapter;
 import com.xiao.common.widget.recycler.RecyclerAdapter;
@@ -28,10 +31,14 @@ import com.xiao.factory.model.db.Message;
 import com.xiao.factory.model.db.User;
 import com.xiao.factory.persisitence.Account;
 import com.xiao.factory.presenter.message.ChatContract;
+import com.xiao.factory.utils.FileCache;
+import com.xiao.mineim.App;
 import com.xiao.mineim.R;
 import com.xiao.mineim.activity.ChatActivity;
 import com.xiao.mineim.fragment.panel.PanelFragment;
 
+import net.qiujuer.genius.kit.handler.Run;
+import net.qiujuer.genius.kit.handler.runable.Action;
 import net.qiujuer.genius.ui.Ui;
 import net.qiujuer.genius.ui.compat.UiCompat;
 import net.qiujuer.genius.ui.widget.Loading;
@@ -78,6 +85,10 @@ public abstract class ChatFragment<InitModel>
     //控制顶部面案与软键盘过度的Boss控件
     private AirPanel.Boss mPanelBoss;
     private PanelFragment mPanelFragment;
+
+    private AudioPlayHelper<AudioHolder> mAudioPlayer;
+
+    private FileCache<AudioHolder> mAudioFileCache;
 
     @Override
     protected void initArgs(Bundle bundle) {
@@ -152,6 +163,51 @@ public abstract class ChatFragment<InitModel>
         mAppBarLayout.addOnOffsetChangedListener(this);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAudioPlayer = new AudioPlayHelper<>(new AudioPlayHelper.RecordPlayListener<AudioHolder>() {
+            @Override
+            public void onPlayStart(AudioHolder audioHolder) {
+                audioHolder.onPlayStart();
+            }
+
+            @Override
+            public void onPlayStop(AudioHolder audioHolder) {
+                audioHolder.onPlayStop();
+            }
+
+            @Override
+            public void onPlayError(AudioHolder audioHolder) {
+                App.showToast(R.string.toast_audio_play_error);
+            }
+        });
+
+        mAudioFileCache = new FileCache<>("audio/cache", "mp3", new FileCache.CacheListener<AudioHolder>() {
+            @Override
+            public void onDownloadSucceed(final AudioHolder audioHolder, final File file) {
+                Run.onUiAsync(new Action() {
+                    @Override
+                    public void call() {
+                        mAudioPlayer.trigger(audioHolder, file.getAbsolutePath());
+                    }
+                });
+            }
+
+            @Override
+            public void onDownloadFailed(AudioHolder audioHolder) {
+
+                Application.showToast(R.string.toast_download_error);
+            }
+        });
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mAudioPlayer.destroy();
+    }
 
     private void initEditContent() {
 
@@ -212,7 +268,8 @@ public abstract class ChatFragment<InitModel>
 
     @Override
     public void onRecordDone(File file, long time) {
-        //TODO 语音回调
+
+        mPresenter.pushAudio(file.getAbsolutePath(), time);
     }
 
     @Override
@@ -364,6 +421,12 @@ public abstract class ChatFragment<InitModel>
      */
     class AudioHolder extends BaseHolder {
 
+        @BindView(R.id.txt_content)
+        TextView mContent;
+
+        @BindView(R.id.im_audio_track)
+        ImageView mAudioTrack;
+
         public AudioHolder(View itemView) {
             super(itemView);
         }
@@ -371,7 +434,36 @@ public abstract class ChatFragment<InitModel>
         @Override
         protected void onBind(Message message) {
             super.onBind(message);
-            //TODO
+            String attach = TextUtils.isEmpty(message.getAttach()) ? "0" : message.getAttach();
+
+            mContent.setText(formatTime(attach));
+        }
+
+        void onPlayStart() {
+            mAudioTrack.setVisibility(View.VISIBLE);
+        }
+
+        void onPlayStop() {
+            mAudioTrack.setVisibility(View.INVISIBLE);
+        }
+
+
+        private String formatTime(String attach) {
+
+            float time;
+
+            try {
+
+                time = Float.parseFloat(attach) / 1000f;
+
+            } catch (Exception exception) {
+                Log.e("ERROR", exception.toString());
+                time = 0;
+            }
+
+            String shortTime = String.valueOf(Math.round(time * 10f) / 10f);
+            shortTime = shortTime.replaceAll("[.]0+?$|0+?$", "");
+            return String.format("%s″", shortTime);
         }
     }
 
