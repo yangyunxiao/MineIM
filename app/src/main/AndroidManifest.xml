@@ -60,7 +60,11 @@
         <activity android:name=".activity.ChatActivity" />
         <activity android:name=".activity.PersonalActivity" />
         <activity android:name=".activity.GroupCreateActivity" />
-        <activity android:name=".activity.GroupMemberActivity"></activity>
+        <activity android:name=".activity.GroupMemberActivity" />
+
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL}" />
     </application>
 
 </manifest>
