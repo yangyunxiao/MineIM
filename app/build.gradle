@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply from: "version.gradle"
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -7,8 +8,8 @@ android {
         applicationId rootProject.ext.android.applicationId
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
-        versionCode rootProject.ext.android.versionCode
-        versionName rootProject.ext.android.versionName
+        versionCode appVersionCode
+        versionName appVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         manifestPlaceholders = [
