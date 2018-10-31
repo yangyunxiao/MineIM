@@ -36,38 +36,38 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile rootProject.ext.dependencies.libAppCompatVersion
-    compile rootProject.ext.dependencies.libConstraintLayoutVersion
-    compile rootProject.ext.dependencies.libSupportVersion
-    compile rootProject.ext.dependencies.libButterKnifeVersion
-    compile rootProject.ext.dependencies.libButterKnifeCompilerVersion
-    compile rootProject.ext.dependencies.libRecyclerViewVersion
-    compile rootProject.ext.dependencies.libDesignVersion
-    compile rootProject.ext.dependencies.libQiujuerUIVersion
-    compile rootProject.ext.dependencies.libQiujuerResVersion
-    compile rootProject.ext.dependencies.libQiujuerKitHandlerVersion
-    compile rootProject.ext.dependencies.libGlideVersion
-    compile rootProject.ext.dependencies.libEasyPMVersion
-    compile rootProject.ext.dependencies.libGeTuiVersion
-    compile rootProject.ext.dependencies.libAirPanelVersion
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation rootProject.ext.dependencies.libAppCompatVersion
+    implementation rootProject.ext.dependencies.libConstraintLayoutVersion
+    implementation rootProject.ext.dependencies.libSupportVersion
+    implementation rootProject.ext.dependencies.libButterKnifeVersion
+    annotationProcessor rootProject.ext.dependencies.libButterKnifeCompilerVersion
+    implementation rootProject.ext.dependencies.libRecyclerViewVersion
+    implementation rootProject.ext.dependencies.libDesignVersion
+    implementation rootProject.ext.dependencies.libQiujuerUIVersion
+    implementation rootProject.ext.dependencies.libQiujuerResVersion
+    implementation rootProject.ext.dependencies.libQiujuerKitHandlerVersion
+    implementation rootProject.ext.dependencies.libGlideVersion
+    implementation rootProject.ext.dependencies.libEasyPMVersion
+    implementation rootProject.ext.dependencies.libGeTuiVersion
+    implementation rootProject.ext.dependencies.libAirPanelVersion
 
-    debugCompile rootProject.ext.dependencies.libPandoraLib
-    releaseCompile rootProject.ext.dependencies.libPandoraNoOpLib
+    debugImplementation rootProject.ext.dependencies.libPandoraLib
+    releaseImplementation rootProject.ext.dependencies.libPandoraNoOpLib
 
 //    compile(rootProject.ext.dependencies.libEasyPMVersion) {
 //        exclude group: 'com.android.support', module: 'design'
 //    }
 
-    compile(rootProject.ext.dependencies.libCropImageVersion) {
+    implementation(rootProject.ext.dependencies.libCropImageVersion) {
         exclude module: 'constraint-layout'
         transitive false
     }
 
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    compile project(':factory')
-    testCompile 'junit:junit:4.12'
+    implementation project(':factory')
+    testImplementation 'junit:junit:4.12'
 }

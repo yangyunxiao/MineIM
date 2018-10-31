@@ -23,28 +23,28 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    compile project(':common')
-    compile rootProject.ext.dependencies.libAliOssVersion
+    api project(':common')
+    api rootProject.ext.dependencies.libAliOssVersion
 
-    compile rootProject.ext.dependencies.libRetrofitVersion
-    compile rootProject.ext.dependencies.libRetrofitGsonVersion
+    api rootProject.ext.dependencies.libRetrofitVersion
+    api rootProject.ext.dependencies.libRetrofitGsonVersion
 
-    compile(rootProject.ext.dependencies.libOkHttpLogVersion) {
+    api(rootProject.ext.dependencies.libOkHttpLogVersion) {
         exclude group: 'org.json', module: 'json'
     }
-    compile rootProject.ext.dependencies.libGsonVersion
+    api rootProject.ext.dependencies.libGsonVersion
 
-    compile rootProject.ext.dependencies.libDbFLowCoreVersion
-    compile rootProject.ext.dependencies.libDbFlowVersion
+    api rootProject.ext.dependencies.libDbFLowCoreVersion
+    api rootProject.ext.dependencies.libDbFlowVersion
     annotationProcessor rootProject.ext.dependencies.libAnnotationProcessorVersion
 
-    compile rootProject.ext.dependencies.libQiujuerKitReflectVersion
+    api rootProject.ext.dependencies.libQiujuerKitReflectVersion
 
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 
 }

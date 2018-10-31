@@ -4,7 +4,7 @@ ext {
      */
     android = [
             compileSdkVersion: 27,
-            buildToolsVersion: "27.0.3",
+            buildToolsVersion: "28.0.3",
             applicationId    : "com.xiao.mineim",
             minSdkVersion    : 19,
             targetSdkVersion : 27,
@@ -43,6 +43,7 @@ ext {
 
             libButterKnifeVersion        : 'com.jakewharton:butterknife:8.8.1',
             libButterKnifeCompilerVersion: 'com.jakewharton:butterknife-compiler:8.8.1',
+
 
             //图片剪切库导入
             libCropImageVersion          : 'com.github.yalantis:ucrop:2.2.2-native',

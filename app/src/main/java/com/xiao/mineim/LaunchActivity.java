@@ -5,14 +5,11 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.app.NotificationChannel;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.Property;
 import android.view.View;
 
-import com.google.common.util.concurrent.Runnables;
 import com.xiao.common.app.BaseActivity;
 import com.xiao.factory.persisitence.Account;
 import com.xiao.mineim.activity.AccountActivity;

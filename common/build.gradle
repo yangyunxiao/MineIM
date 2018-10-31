@@ -21,28 +21,28 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile rootProject.ext.dependencies.libAppCompatVersion
-    compile rootProject.ext.dependencies.libConstraintLayoutVersion
-//    compile rootProject.ext.dependencies.libSupportVersion
-    compile rootProject.ext.dependencies.libButterKnifeVersion
-    compile rootProject.ext.dependencies.libButterKnifeCompilerVersion
-    compile rootProject.ext.dependencies.libRecyclerViewVersion
-    compile rootProject.ext.dependencies.libDesignVersion
-    compile rootProject.ext.dependencies.libQiujuerUIVersion
-    compile rootProject.ext.dependencies.libQiujuerResVersion
-    compile rootProject.ext.dependencies.libQiujuerKitHandlerVersion
-    compile rootProject.ext.dependencies.libCircleImageViewVersion
-    compile rootProject.ext.dependencies.libGlideVersion
-    compile rootProject.ext.dependencies.libAirPanelVersion
-    compile rootProject.ext.dependencies.libGsonVersion
-    compile rootProject.ext.dependencies.qiujuerLameLib
+    api rootProject.ext.dependencies.libAppCompatVersion
+    api rootProject.ext.dependencies.libConstraintLayoutVersion
+    api rootProject.ext.dependencies.libSupportVersion
+    api rootProject.ext.dependencies.libButterKnifeVersion
+    annotationProcessor rootProject.ext.dependencies.libButterKnifeCompilerVersion
+    api rootProject.ext.dependencies.libRecyclerViewVersion
+    api rootProject.ext.dependencies.libDesignVersion
+    api rootProject.ext.dependencies.libQiujuerUIVersion
+    api rootProject.ext.dependencies.libQiujuerResVersion
+    api rootProject.ext.dependencies.libQiujuerKitHandlerVersion
+    api rootProject.ext.dependencies.libCircleImageViewVersion
+    api rootProject.ext.dependencies.libGlideVersion
+    api rootProject.ext.dependencies.libAirPanelVersion
+    api rootProject.ext.dependencies.libGsonVersion
+    api rootProject.ext.dependencies.qiujuerLameLib
 
-    compile project(':lang')
-    compile project(':face-res')
+    api project(':lang')
+    api project(':face-res')
 
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 }

@@ -15,12 +15,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
-import com.google.common.base.Objects;
 import com.xiao.common.app.BaseActivity;
 import com.xiao.common.widget.PortraitView;
 import com.xiao.factory.persisitence.Account;
 import com.xiao.mineim.R;
-import com.xiao.mineim.fragment.assist.PermissionFragment;
 import com.xiao.mineim.fragment.main.ActiveFragment;
 import com.xiao.mineim.fragment.main.ContactFragment;
 import com.xiao.mineim.fragment.main.GroupFragment;
@@ -28,6 +26,8 @@ import com.xiao.mineim.helper.NavigationHelper;
 
 import net.qiujuer.genius.ui.Ui;
 import net.qiujuer.genius.ui.widget.FloatActionButton;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -127,7 +127,7 @@ public class MainActivity extends BaseActivity
     @OnClick(R.id.main_image_search)
     void onSearchClick() {
 
-        int type = Objects.equal(mNavigationHelper.getCurrentTab().mExtra, R.string.title_group) ?
+        int type = Objects.equals(mNavigationHelper.getCurrentTab().mExtra, R.string.title_group) ?
                 SearchActivity.TYPE_GROUP : SearchActivity.TYPE_CONTACT;
 
         SearchActivity.show(this, type);
@@ -137,7 +137,7 @@ public class MainActivity extends BaseActivity
 
     @OnClick(R.id.main_button_action)
     void onActionClick() {
-        if (Objects.equal(mNavigationHelper.getCurrentTab().mExtra, R.string.title_group)) {
+        if (Objects.equals(mNavigationHelper.getCurrentTab().mExtra, R.string.title_group)) {
 
             GroupCreateActivity.show(this);
         } else {
@@ -167,17 +167,17 @@ public class MainActivity extends BaseActivity
         float translateY = 0;
         float rotation = 0;
 
-        if (Objects.equal(newTab.mExtra, R.string.title_home)) {
+        if (Objects.equals(newTab.mExtra, R.string.title_home)) {
 
             translateY = Ui.dipToPx(getResources(), 76);
         } else {
 
-            if (Objects.equal(newTab.mExtra, R.string.title_contact)) {
+            if (Objects.equals(newTab.mExtra, R.string.title_contact)) {
 
                 mFloatAction.setImageResource(R.drawable.ic_contact_add);
                 rotation = -360;
 
-            } else if (Objects.equal(newTab.mExtra, R.string.title_group)) {
+            } else if (Objects.equals(newTab.mExtra, R.string.title_group)) {
 
                 mFloatAction.setImageResource(R.drawable.ic_group_add);
                 rotation = 360;

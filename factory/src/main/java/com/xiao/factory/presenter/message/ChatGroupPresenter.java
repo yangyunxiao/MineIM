@@ -1,7 +1,6 @@
 package com.xiao.factory.presenter.message;
 
 import com.xiao.factory.data.helper.GroupHelper;
-import com.xiao.factory.data.message.MessageDataSource;
 import com.xiao.factory.data.message.MessageGroupRepository;
 import com.xiao.factory.model.db.Group;
 import com.xiao.factory.model.db.Message;
