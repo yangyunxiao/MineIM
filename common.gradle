@@ -8,8 +8,7 @@ ext {
             applicationId    : "com.xiao.mineim",
             minSdkVersion    : 19,
             targetSdkVersion : 27,
-            versionCode      : 1,
-            versionName      : "1.0"
+
     ]
 
 //    androidSupportVersion = "25.3.1"
